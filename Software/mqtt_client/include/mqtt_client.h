@@ -37,7 +37,7 @@ static bool init_wifi(void);
  * @return true if the mqtt client was initialized correctly
  * @return false if an error occurred
  */
-bool init_mqtt(mqtt_client_t **client, struct mqtt_connect_client_info_t *ci, const uint8_t *ip_server);
+bool init_mqtt(mqtt_client_t **client, struct mqtt_connect_client_info_t *ci, const char *ip_server);
 
 /**
  * @brief Callback function to when a connection occurs, defines the callback functions
@@ -84,7 +84,7 @@ static void mqtt_pub_request_cb(void *arg, err_t result);
  * @return true if the topic was subscribed correctly
  * @return false if an error occurred
  */
-bool subscribe_topic(mqtt_client_t **client, const uint8_t *subtopic);
+bool subscribe_topic(mqtt_client_t **client, const char *subtopic);
 
 /**
  * @brief Function to publish a message
@@ -98,7 +98,7 @@ bool subscribe_topic(mqtt_client_t **client, const uint8_t *subtopic);
  * @return true if the message was published correctly
  * @return false if an error occurred
  */
-bool publish(mqtt_client_t *client, void *arg, const uint8_t *topic, 
-            const uint8_t *payload, const uint8_t qos, const uint8_t retain);
+bool publish(mqtt_client_t *client, void *arg, const char *topic, 
+            const char *payload, const uint8_t qos, const uint8_t retain);
 
 #endif // MQTT_CLIENT_H

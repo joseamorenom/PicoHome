@@ -20,10 +20,10 @@ add_executable(test
 
 # Add pico_stdlib library which aggregates commonly used features
 target_link_libraries(test 
-    pico_stdlib
-	hardware_sync
-    mqtt_client_lib
-	)
+					pico_stdlib
+					hardware_sync
+					mqtt_client_lib
+					)
 
 target_include_directories(test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 

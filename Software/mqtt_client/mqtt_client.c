@@ -27,7 +27,7 @@ static bool init_wifi(void)
     return true;
 }
 
-bool init_mqtt(mqtt_client_t **client, struct mqtt_connect_client_info_t *ci, const uint8_t *ip_server)
+bool init_mqtt(mqtt_client_t **client, struct mqtt_connect_client_info_t *ci, const char *ip_server)
 {   
     ip_addr_t broker_ip;
     err_t err;
@@ -100,7 +100,7 @@ static void mqtt_incoming_data_cb(void *arg, const uint8_t *data, uint16_t len, 
     }
 }
 
-bool subscribe_topic(mqtt_client_t **client, const uint8_t *subtopic)
+bool subscribe_topic(mqtt_client_t **client, const char *subtopic)
 {
     err_t err;
     err = mqtt_subscribe(*client, subtopic, 1, NULL, NULL);
@@ -108,8 +108,8 @@ bool subscribe_topic(mqtt_client_t **client, const uint8_t *subtopic)
     return err == ERR_OK;
 }
 
-bool publish(mqtt_client_t *client, void *arg, const uint8_t *topic, 
-            const uint8_t *payload, const uint8_t qos, const uint8_t retain)
+bool publish(mqtt_client_t *client, void *arg, const char *topic, 
+            const char *payload, const uint8_t qos, const uint8_t retain)
 {
     err_t err;
     err = mqtt_publish(client, topic, payload, strlen(payload), qos, retain, mqtt_pub_request_cb, arg);
