@@ -41,6 +41,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/pico-sdk/cmake_install.cmake")
   include("C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/mqtt_client_test/cmake_install.cmake")
+  include("C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/mqtt_client/cmake_install.cmake")
 
 endif()
 

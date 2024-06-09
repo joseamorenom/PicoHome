@@ -216,7 +216,7 @@ mqtt_client_lib: cmake_check_build_system
 
 # fast build rule for target.
 mqtt_client_lib/fast:
-	$(MAKE) $(MAKESILENT) -f mqtt_client_test\CMakeFiles\mqtt_client_lib.dir\build.make mqtt_client_test/CMakeFiles/mqtt_client_lib.dir/build
+	$(MAKE) $(MAKESILENT) -f mqtt_client\CMakeFiles\mqtt_client_lib.dir\build.make mqtt_client/CMakeFiles/mqtt_client_lib.dir/build
 .PHONY : mqtt_client_lib/fast
 
 # Help Target

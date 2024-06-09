@@ -69,7 +69,7 @@ pico-sdk/src/rp2_common/pico_cyw43_driver/CMakeFiles/cyw43_driver_picow_cyw43_bu
 
 pico-sdk/src/rp2_common/pico_cyw43_driver/cyw43_bus_pio_spi.pio.h: M:/Apps/Raspberry\ Pi/Pico\ SDK\ v1.5.1/pico-sdk/src/rp2_common/pico_cyw43_driver/cyw43_bus_pio_spi.pio
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir="C:\Users\johan\OneDrive - Universidad de Antioquia\Semestre VII\Elec. Digital III\Proyecto Final\PicoHome\Software\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Generating cyw43_bus_pio_spi.pio.h"
-	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\pico-sdk\src\RP2_CO~1\PICO_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk-tools\pioasm.exe" -o c-sdk "M:/Apps/Raspberry Pi/Pico SDK v1.5.1/pico-sdk/src/rp2_common/pico_cyw43_driver/cyw43_bus_pio_spi.pio" "C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/pico-sdk/src/rp2_common/pico_cyw43_driver/cyw43_bus_pio_spi.pio.h"
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\pico-sdk\src\RP2_CO~1\PICO_C~3 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk-tools\pioasm.exe" -o c-sdk "M:/Apps/Raspberry Pi/Pico SDK v1.5.1/pico-sdk/src/rp2_common/pico_cyw43_driver/cyw43_bus_pio_spi.pio" "C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/pico-sdk/src/rp2_common/pico_cyw43_driver/cyw43_bus_pio_spi.pio.h"
 
 cyw43_driver_picow_cyw43_bus_pio_spi_pio_h: pico-sdk/src/rp2_common/pico_cyw43_driver/CMakeFiles/cyw43_driver_picow_cyw43_bus_pio_spi_pio_h
 cyw43_driver_picow_cyw43_bus_pio_spi_pio_h: pico-sdk/src/rp2_common/pico_cyw43_driver/cyw43_bus_pio_spi.pio.h
@@ -81,7 +81,7 @@ pico-sdk/src/rp2_common/pico_cyw43_driver/CMakeFiles/cyw43_driver_picow_cyw43_bu
 .PHONY : pico-sdk/src/rp2_common/pico_cyw43_driver/CMakeFiles/cyw43_driver_picow_cyw43_bus_pio_spi_pio_h.dir/build
 
 pico-sdk/src/rp2_common/pico_cyw43_driver/CMakeFiles/cyw43_driver_picow_cyw43_bus_pio_spi_pio_h.dir/clean:
-	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\pico-sdk\src\RP2_CO~1\PICO_C~1 && $(CMAKE_COMMAND) -P CMakeFiles\cyw43_driver_picow_cyw43_bus_pio_spi_pio_h.dir\cmake_clean.cmake
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\pico-sdk\src\RP2_CO~1\PICO_C~3 && $(CMAKE_COMMAND) -P CMakeFiles\cyw43_driver_picow_cyw43_bus_pio_spi_pio_h.dir\cmake_clean.cmake
 .PHONY : pico-sdk/src/rp2_common/pico_cyw43_driver/CMakeFiles/cyw43_driver_picow_cyw43_bus_pio_spi_pio_h.dir/clean
 
 pico-sdk/src/rp2_common/pico_cyw43_driver/CMakeFiles/cyw43_driver_picow_cyw43_bus_pio_spi_pio_h.dir/depend:

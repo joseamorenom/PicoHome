@@ -12,6 +12,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.25.2/CMakeCCompiler.cmake"
   "CMakeFiles/3.25.2/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.25.2/CMakeSystem.cmake"
+  "C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/mqtt_client/CMakeLists.txt"
   "C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/mqtt_client_test/CMakeLists.txt"
   "C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/mqtt_client_test/pico_sdk_import.cmake"
   "C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/pico_sdk_import.cmake"
@@ -237,6 +238,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "pico-sdk/docs/CMakeFiles/CMakeDirectoryInformation.cmake"
   "mqtt_client_test/CMakeFiles/CMakeDirectoryInformation.cmake"
   "mqtt_client_test/pico-sdk/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "mqtt_client/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
@@ -248,5 +250,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "pico-sdk/src/rp2_common/tinyusb/CMakeFiles/tinyusb_pico_pio_usb_usb_rx_pio_h.dir/DependInfo.cmake"
   "pico-sdk/src/rp2_common/pico_cyw43_driver/CMakeFiles/cyw43_driver_picow_cyw43_bus_pio_spi_pio_h.dir/DependInfo.cmake"
   "mqtt_client_test/CMakeFiles/test.dir/DependInfo.cmake"
-  "mqtt_client_test/CMakeFiles/mqtt_client_lib.dir/DependInfo.cmake"
+  "mqtt_client/CMakeFiles/mqtt_client_lib.dir/DependInfo.cmake"
   )

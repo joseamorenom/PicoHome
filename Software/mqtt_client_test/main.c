@@ -26,8 +26,8 @@ int main(void)
     }
     printf("Subscribed to the topic\n");
     uint8_t data[4];
-    data[0] = 57;
-    data[1] = 50;
+    data[0] = 55;
+    data[1] = 48;
     data[2] = 48;
 
     if(publish(client, NULL, MQTT_TOPIC_PUB_NFC, data, 2, 1)) {

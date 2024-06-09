@@ -41,11 +41,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  18 .debug_line   0003b644  00000000  00000000  000ceb68  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    0000ef1f  00000000  00000000  0010a1ac  2**0
+ 19 .debug_str    0000ef75  00000000  00000000  0010a1ac  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_frame  00006e64  00000000  00000000  001190cc  2**2
+ 20 .debug_frame  00006e64  00000000  00000000  00119124  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_loc    0004148f  00000000  00000000  0011ff30  2**0
+ 21 .debug_loc    0004148f  00000000  00000000  0011ff88  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/mqtt_client_test/test.elf:     file format elf32-littlearm
@@ -366,27 +366,27 @@ Disassembly of section .text:
 10000356:	4814      	ldr	r0, [pc, #80]	; (100003a8 <main+0xa4>)
 10000358:	f003 ff9a 	bl	10004290 <__wrap_puts>
 1000035c:	ab03      	add	r3, sp, #12
-1000035e:	2239      	movs	r2, #57	; 0x39
+1000035e:	2237      	movs	r2, #55	; 0x37
 10000360:	701a      	strb	r2, [r3, #0]
 10000362:	3a07      	subs	r2, #7
 10000364:	705a      	strb	r2, [r3, #1]
-10000366:	3a02      	subs	r2, #2
-10000368:	709a      	strb	r2, [r3, #2]
-1000036a:	3a2f      	subs	r2, #47	; 0x2f
-1000036c:	9201      	str	r2, [sp, #4]
-1000036e:	3201      	adds	r2, #1
-10000370:	9200      	str	r2, [sp, #0]
-10000372:	4a0e      	ldr	r2, [pc, #56]	; (100003ac <main+0xa8>)
-10000374:	2100      	movs	r1, #0
-10000376:	9804      	ldr	r0, [sp, #16]
-10000378:	f015 fb06 	bl	10015988 <publish>
-1000037c:	2800      	cmp	r0, #0
-1000037e:	d101      	bne.n	10000384 <main+0x80>
-10000380:	bf30      	wfi
-10000382:	e7fd      	b.n	10000380 <main+0x7c>
-10000384:	480a      	ldr	r0, [pc, #40]	; (100003b0 <main+0xac>)
-10000386:	f003 ff83 	bl	10004290 <__wrap_puts>
-1000038a:	e7f9      	b.n	10000380 <main+0x7c>
+10000366:	709a      	strb	r2, [r3, #2]
+10000368:	3a2f      	subs	r2, #47	; 0x2f
+1000036a:	9201      	str	r2, [sp, #4]
+1000036c:	3201      	adds	r2, #1
+1000036e:	9200      	str	r2, [sp, #0]
+10000370:	4a0e      	ldr	r2, [pc, #56]	; (100003ac <main+0xa8>)
+10000372:	2100      	movs	r1, #0
+10000374:	9804      	ldr	r0, [sp, #16]
+10000376:	f015 fb07 	bl	10015988 <publish>
+1000037a:	2800      	cmp	r0, #0
+1000037c:	d101      	bne.n	10000382 <main+0x7e>
+1000037e:	bf30      	wfi
+10000380:	e7fd      	b.n	1000037e <main+0x7a>
+10000382:	480b      	ldr	r0, [pc, #44]	; (100003b0 <main+0xac>)
+10000384:	f003 ff84 	bl	10004290 <__wrap_puts>
+10000388:	e7f9      	b.n	1000037e <main+0x7a>
+1000038a:	46c0      	nop			; (mov r8, r8)
 1000038c:	00000bb8 	.word	0x00000bb8
 10000390:	10015d58 	.word	0x10015d58
 10000394:	10015d70 	.word	0x10015d70

@@ -25,16 +25,7 @@ target_link_libraries(test
     mqtt_client_lib
 	)
 
-add_library(mqtt_client_lib STATIC ../mqtt_client/mqtt_client.c)
-
-target_include_directories(mqtt_client_lib PUBLIC ../mqtt_client/include/)
-
-target_link_libraries(mqtt_client_lib
-                    pico_stdlib
-                    pico_cyw43_arch_lwip_threadsafe_background
-                    pico_cyw43_arch_none
-                    pico_lwip_mqtt)
-
+target_include_directories(test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 pico_enable_stdio_uart(test 0)
 pico_enable_stdio_usb(test 1)

@@ -171,8 +171,10 @@ C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital II
 C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/pico-sdk/docs/CMakeFiles/edit_cache.dir
 C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/pico-sdk/docs/CMakeFiles/rebuild_cache.dir
 C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/mqtt_client_test/CMakeFiles/test.dir
-C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/mqtt_client_test/CMakeFiles/mqtt_client_lib.dir
 C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/mqtt_client_test/CMakeFiles/edit_cache.dir
 C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/mqtt_client_test/CMakeFiles/rebuild_cache.dir
 C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/mqtt_client_test/pico-sdk/CMakeFiles/edit_cache.dir
 C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/mqtt_client_test/pico-sdk/CMakeFiles/rebuild_cache.dir
+C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/mqtt_client/CMakeFiles/mqtt_client_lib.dir
+C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/mqtt_client/CMakeFiles/edit_cache.dir
+C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/mqtt_client/CMakeFiles/rebuild_cache.dir
