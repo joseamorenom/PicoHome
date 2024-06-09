@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "mqtt_client_test/pico-sdk",
+		"source" : "M:/Apps/Raspberry Pi/Pico SDK v1.5.1/pico-sdk"
+	}
+}
