@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "mqtt_client.h": "c",
-        "cyw43_arch.h": "c"
+        "cyw43_arch.h": "c",
+        "app.h": "c"
     }
 }

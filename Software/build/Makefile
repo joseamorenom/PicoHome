@@ -219,6 +219,58 @@ mqtt_client_lib/fast:
 	$(MAKE) $(MAKESILENT) -f mqtt_client\CMakeFiles\mqtt_client_lib.dir\build.make mqtt_client/CMakeFiles/mqtt_client_lib.dir/build
 .PHONY : mqtt_client_lib/fast
 
+#=============================================================================
+# Target rules for targets named light_control_unit
+
+# Build rule for target.
+light_control_unit: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 light_control_unit
+.PHONY : light_control_unit
+
+# fast build rule for target.
+light_control_unit/fast:
+	$(MAKE) $(MAKESILENT) -f light_control_unit\CMakeFiles\light_control_unit.dir\build.make light_control_unit/CMakeFiles/light_control_unit.dir/build
+.PHONY : light_control_unit/fast
+
+#=============================================================================
+# Target rules for targets named app
+
+# Build rule for target.
+app: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 app
+.PHONY : app
+
+# fast build rule for target.
+app/fast:
+	$(MAKE) $(MAKESILENT) -f light_control_unit\src\CMakeFiles\app.dir\build.make light_control_unit/src/CMakeFiles/app.dir/build
+.PHONY : app/fast
+
+#=============================================================================
+# Target rules for targets named lightbulb_lib
+
+# Build rule for target.
+lightbulb_lib: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 lightbulb_lib
+.PHONY : lightbulb_lib
+
+# fast build rule for target.
+lightbulb_lib/fast:
+	$(MAKE) $(MAKESILENT) -f light_control_unit\src\CMakeFiles\lightbulb_lib.dir\build.make light_control_unit/src/CMakeFiles/lightbulb_lib.dir/build
+.PHONY : lightbulb_lib/fast
+
+#=============================================================================
+# Target rules for targets named sen_ky018_lib
+
+# Build rule for target.
+sen_ky018_lib: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 sen_ky018_lib
+.PHONY : sen_ky018_lib
+
+# fast build rule for target.
+sen_ky018_lib/fast:
+	$(MAKE) $(MAKESILENT) -f light_control_unit\src\CMakeFiles\sen_ky018_lib.dir\build.make light_control_unit/src/CMakeFiles/sen_ky018_lib.dir/build
+.PHONY : sen_ky018_lib/fast
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -232,8 +284,12 @@ help:
 	@echo ... cyw43_driver_picow_cyw43_bus_pio_spi_pio_h
 	@echo ... tinyusb_pico_pio_usb_usb_rx_pio_h
 	@echo ... tinyusb_pico_pio_usb_usb_tx_pio_h
+	@echo ... app
 	@echo ... bs2_default
+	@echo ... light_control_unit
+	@echo ... lightbulb_lib
 	@echo ... mqtt_client_lib
+	@echo ... sen_ky018_lib
 	@echo ... test
 .PHONY : help
 

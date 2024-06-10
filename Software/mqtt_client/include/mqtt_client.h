@@ -21,6 +21,15 @@
 #define MQTT_SEVER_IP2 "54.81.146.55"
 
 /**
+ * @brief Struct to store the mqtt client and the client info
+ * 
+ */
+typedef struct {
+    struct mqtt_connect_client_info_t ci;
+    mqtt_client_t *client;
+}mqtt_t;
+
+/**
  * @brief Function to initialize the wifi module
  * 
  * @return true if the wifi module was initialized correctly

@@ -178,3 +178,15 @@ C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital II
 C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/mqtt_client/CMakeFiles/mqtt_client_lib.dir
 C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/mqtt_client/CMakeFiles/edit_cache.dir
 C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/mqtt_client/CMakeFiles/rebuild_cache.dir
+C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/light_control_unit/CMakeFiles/light_control_unit.dir
+C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/light_control_unit/CMakeFiles/edit_cache.dir
+C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/light_control_unit/CMakeFiles/rebuild_cache.dir
+C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/light_control_unit/pico-sdk/CMakeFiles/edit_cache.dir
+C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/light_control_unit/pico-sdk/CMakeFiles/rebuild_cache.dir
+C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/light_control_unit/src/CMakeFiles/app.dir
+C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/light_control_unit/src/CMakeFiles/lightbulb_lib.dir
+C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/light_control_unit/src/CMakeFiles/sen_ky018_lib.dir
+C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/light_control_unit/src/CMakeFiles/edit_cache.dir
+C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/light_control_unit/src/CMakeFiles/rebuild_cache.dir
+C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/light_control_unit/include/CMakeFiles/edit_cache.dir
+C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/light_control_unit/include/CMakeFiles/rebuild_cache.dir

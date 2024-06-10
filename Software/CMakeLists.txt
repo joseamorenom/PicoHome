@@ -4,7 +4,7 @@ set(PICO_BOARD pico_w)
 # Pull in SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(PicoHome)
+project(PicoHome C CXX ASM)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 
@@ -25,6 +25,6 @@ add_subdirectory(mqtt_client)
 # add_subdirectory(hub) # PicoHome Hub
 # add_subdirectory(access_control) # PicoHome Node
 # add_subdirectory(blinds_control) # PicoHome Node
-# add_subdirectory(light_control) # PicoHome Node 
+add_subdirectory(light_control_unit) # PicoHome Node 
 
 #add_subdirectory(polling_microPython)

@@ -173,11 +173,11 @@ mqtt_client_test/CMakeFiles/test.dir/499b40f1e381f2fc6e82ae1e521383b2/src/rp2_co
 
 mqtt_client_test/CMakeFiles/test.dir/499b40f1e381f2fc6e82ae1e521383b2/src/rp2_common/hardware_irq/irq_handler_chain.S.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing ASM source to CMakeFiles/test.dir/499b40f1e381f2fc6e82ae1e521383b2/src/rp2_common/hardware_irq/irq_handler_chain.S.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_PREPROCESSED_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\hardware_irq\irq_handler_chain.S" > CMakeFiles\test.dir\499b40f1e381f2fc6e82ae1e521383b2\src\rp2_common\hardware_irq\irq_handler_chain.S.i
 
 mqtt_client_test/CMakeFiles/test.dir/499b40f1e381f2fc6e82ae1e521383b2/src/rp2_common/hardware_irq/irq_handler_chain.S.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling ASM source to assembly CMakeFiles/test.dir/499b40f1e381f2fc6e82ae1e521383b2/src/rp2_common/hardware_irq/irq_handler_chain.S.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_ASSEMBLY_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\hardware_irq\irq_handler_chain.S" -o CMakeFiles\test.dir\499b40f1e381f2fc6e82ae1e521383b2\src\rp2_common\hardware_irq\irq_handler_chain.S.s
 
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_sync/sem.c.obj: mqtt_client_test/CMakeFiles/test.dir/flags.make
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_sync/sem.c.obj: M:/Apps/Raspberry\ Pi/Pico\ SDK\ v1.5.1/pico-sdk/src/common/pico_sync/sem.c
@@ -410,11 +410,11 @@ mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-s
 
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_divider/divider.S.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing ASM source to CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_divider/divider.S.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_PREPROCESSED_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\hardware_divider\divider.S" > CMakeFiles\test.dir\M_\Apps\Raspberry_Pi\Pico_SDK_v1.5.1\pico-sdk\src\rp2_common\hardware_divider\divider.S.i
 
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_divider/divider.S.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling ASM source to assembly CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_divider/divider.S.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_ASSEMBLY_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\hardware_divider\divider.S" -o CMakeFiles\test.dir\M_\Apps\Raspberry_Pi\Pico_SDK_v1.5.1\pico-sdk\src\rp2_common\hardware_divider\divider.S.s
 
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj: mqtt_client_test/CMakeFiles/test.dir/flags.make
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj: M:/Apps/Raspberry\ Pi/Pico\ SDK\ v1.5.1/pico-sdk/src/rp2_common/pico_runtime/runtime.c
@@ -451,11 +451,11 @@ mqtt_client_test/CMakeFiles/test.dir/9a812cb0b316dc0335e08c2ebbcddfae/pico-sdk/s
 
 mqtt_client_test/CMakeFiles/test.dir/9a812cb0b316dc0335e08c2ebbcddfae/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing ASM source to CMakeFiles/test.dir/9a812cb0b316dc0335e08c2ebbcddfae/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_PREPROCESSED_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\pico_bit_ops\bit_ops_aeabi.S" > CMakeFiles\test.dir\9a812cb0b316dc0335e08c2ebbcddfae\pico-sdk\src\rp2_common\pico_bit_ops\bit_ops_aeabi.S.i
 
 mqtt_client_test/CMakeFiles/test.dir/9a812cb0b316dc0335e08c2ebbcddfae/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling ASM source to assembly CMakeFiles/test.dir/9a812cb0b316dc0335e08c2ebbcddfae/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_ASSEMBLY_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\pico_bit_ops\bit_ops_aeabi.S" -o CMakeFiles\test.dir\9a812cb0b316dc0335e08c2ebbcddfae\pico-sdk\src\rp2_common\pico_bit_ops\bit_ops_aeabi.S.s
 
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj: mqtt_client_test/CMakeFiles/test.dir/flags.make
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj: M:/Apps/Raspberry\ Pi/Pico\ SDK\ v1.5.1/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c
@@ -478,11 +478,11 @@ mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-s
 
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_divider/divider.S.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing ASM source to CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_divider/divider.S.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_PREPROCESSED_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\pico_divider\divider.S" > CMakeFiles\test.dir\M_\Apps\Raspberry_Pi\Pico_SDK_v1.5.1\pico-sdk\src\rp2_common\pico_divider\divider.S.i
 
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_divider/divider.S.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling ASM source to assembly CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_divider/divider.S.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_ASSEMBLY_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\pico_divider\divider.S" -o CMakeFiles\test.dir\M_\Apps\Raspberry_Pi\Pico_SDK_v1.5.1\pico-sdk\src\rp2_common\pico_divider\divider.S.s
 
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj: mqtt_client_test/CMakeFiles/test.dir/flags.make
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj: M:/Apps/Raspberry\ Pi/Pico\ SDK\ v1.5.1/pico-sdk/src/rp2_common/pico_double/double_aeabi.S
@@ -491,11 +491,11 @@ mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-s
 
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing ASM source to CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_PREPROCESSED_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\pico_double\double_aeabi.S" > CMakeFiles\test.dir\M_\Apps\Raspberry_Pi\Pico_SDK_v1.5.1\pico-sdk\src\rp2_common\pico_double\double_aeabi.S.i
 
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling ASM source to assembly CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_ASSEMBLY_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\pico_double\double_aeabi.S" -o CMakeFiles\test.dir\M_\Apps\Raspberry_Pi\Pico_SDK_v1.5.1\pico-sdk\src\rp2_common\pico_double\double_aeabi.S.s
 
 mqtt_client_test/CMakeFiles/test.dir/9a812cb0b316dc0335e08c2ebbcddfae/pico-sdk/src/rp2_common/pico_double/double_init_rom.c.obj: mqtt_client_test/CMakeFiles/test.dir/flags.make
 mqtt_client_test/CMakeFiles/test.dir/9a812cb0b316dc0335e08c2ebbcddfae/pico-sdk/src/rp2_common/pico_double/double_init_rom.c.obj: M:/Apps/Raspberry\ Pi/Pico\ SDK\ v1.5.1/pico-sdk/src/rp2_common/pico_double/double_init_rom.c
@@ -532,11 +532,11 @@ mqtt_client_test/CMakeFiles/test.dir/499b40f1e381f2fc6e82ae1e521383b2/src/rp2_co
 
 mqtt_client_test/CMakeFiles/test.dir/499b40f1e381f2fc6e82ae1e521383b2/src/rp2_common/pico_double/double_v1_rom_shim.S.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing ASM source to CMakeFiles/test.dir/499b40f1e381f2fc6e82ae1e521383b2/src/rp2_common/pico_double/double_v1_rom_shim.S.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_PREPROCESSED_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\pico_double\double_v1_rom_shim.S" > CMakeFiles\test.dir\499b40f1e381f2fc6e82ae1e521383b2\src\rp2_common\pico_double\double_v1_rom_shim.S.i
 
 mqtt_client_test/CMakeFiles/test.dir/499b40f1e381f2fc6e82ae1e521383b2/src/rp2_common/pico_double/double_v1_rom_shim.S.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling ASM source to assembly CMakeFiles/test.dir/499b40f1e381f2fc6e82ae1e521383b2/src/rp2_common/pico_double/double_v1_rom_shim.S.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_ASSEMBLY_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\pico_double\double_v1_rom_shim.S" -o CMakeFiles\test.dir\499b40f1e381f2fc6e82ae1e521383b2\src\rp2_common\pico_double\double_v1_rom_shim.S.s
 
 mqtt_client_test/CMakeFiles/test.dir/499b40f1e381f2fc6e82ae1e521383b2/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.obj: mqtt_client_test/CMakeFiles/test.dir/flags.make
 mqtt_client_test/CMakeFiles/test.dir/499b40f1e381f2fc6e82ae1e521383b2/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.obj: M:/Apps/Raspberry\ Pi/Pico\ SDK\ v1.5.1/pico-sdk/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S
@@ -545,11 +545,11 @@ mqtt_client_test/CMakeFiles/test.dir/499b40f1e381f2fc6e82ae1e521383b2/src/rp2_co
 
 mqtt_client_test/CMakeFiles/test.dir/499b40f1e381f2fc6e82ae1e521383b2/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing ASM source to CMakeFiles/test.dir/499b40f1e381f2fc6e82ae1e521383b2/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_PREPROCESSED_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\pico_int64_ops\pico_int64_ops_aeabi.S" > CMakeFiles\test.dir\499b40f1e381f2fc6e82ae1e521383b2\src\rp2_common\pico_int64_ops\pico_int64_ops_aeabi.S.i
 
 mqtt_client_test/CMakeFiles/test.dir/499b40f1e381f2fc6e82ae1e521383b2/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling ASM source to assembly CMakeFiles/test.dir/499b40f1e381f2fc6e82ae1e521383b2/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_ASSEMBLY_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\pico_int64_ops\pico_int64_ops_aeabi.S" -o CMakeFiles\test.dir\499b40f1e381f2fc6e82ae1e521383b2\src\rp2_common\pico_int64_ops\pico_int64_ops_aeabi.S.s
 
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj: mqtt_client_test/CMakeFiles/test.dir/flags.make
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj: M:/Apps/Raspberry\ Pi/Pico\ SDK\ v1.5.1/pico-sdk/src/rp2_common/pico_float/float_aeabi.S
@@ -558,11 +558,11 @@ mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-s
 
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing ASM source to CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_PREPROCESSED_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\pico_float\float_aeabi.S" > CMakeFiles\test.dir\M_\Apps\Raspberry_Pi\Pico_SDK_v1.5.1\pico-sdk\src\rp2_common\pico_float\float_aeabi.S.i
 
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling ASM source to assembly CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_ASSEMBLY_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\pico_float\float_aeabi.S" -o CMakeFiles\test.dir\M_\Apps\Raspberry_Pi\Pico_SDK_v1.5.1\pico-sdk\src\rp2_common\pico_float\float_aeabi.S.s
 
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_float/float_init_rom.c.obj: mqtt_client_test/CMakeFiles/test.dir/flags.make
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_float/float_init_rom.c.obj: M:/Apps/Raspberry\ Pi/Pico\ SDK\ v1.5.1/pico-sdk/src/rp2_common/pico_float/float_init_rom.c
@@ -599,11 +599,11 @@ mqtt_client_test/CMakeFiles/test.dir/9a812cb0b316dc0335e08c2ebbcddfae/pico-sdk/s
 
 mqtt_client_test/CMakeFiles/test.dir/9a812cb0b316dc0335e08c2ebbcddfae/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim.S.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing ASM source to CMakeFiles/test.dir/9a812cb0b316dc0335e08c2ebbcddfae/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim.S.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_PREPROCESSED_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\pico_float\float_v1_rom_shim.S" > CMakeFiles\test.dir\9a812cb0b316dc0335e08c2ebbcddfae\pico-sdk\src\rp2_common\pico_float\float_v1_rom_shim.S.i
 
 mqtt_client_test/CMakeFiles/test.dir/9a812cb0b316dc0335e08c2ebbcddfae/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim.S.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling ASM source to assembly CMakeFiles/test.dir/9a812cb0b316dc0335e08c2ebbcddfae/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim.S.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_ASSEMBLY_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\pico_float\float_v1_rom_shim.S" -o CMakeFiles\test.dir\9a812cb0b316dc0335e08c2ebbcddfae\pico-sdk\src\rp2_common\pico_float\float_v1_rom_shim.S.s
 
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c.obj: mqtt_client_test/CMakeFiles/test.dir/flags.make
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c.obj: M:/Apps/Raspberry\ Pi/Pico\ SDK\ v1.5.1/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c
@@ -626,11 +626,11 @@ mqtt_client_test/CMakeFiles/test.dir/9a812cb0b316dc0335e08c2ebbcddfae/pico-sdk/s
 
 mqtt_client_test/CMakeFiles/test.dir/9a812cb0b316dc0335e08c2ebbcddfae/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing ASM source to CMakeFiles/test.dir/9a812cb0b316dc0335e08c2ebbcddfae/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_PREPROCESSED_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\pico_mem_ops\mem_ops_aeabi.S" > CMakeFiles\test.dir\9a812cb0b316dc0335e08c2ebbcddfae\pico-sdk\src\rp2_common\pico_mem_ops\mem_ops_aeabi.S.i
 
 mqtt_client_test/CMakeFiles/test.dir/9a812cb0b316dc0335e08c2ebbcddfae/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling ASM source to assembly CMakeFiles/test.dir/9a812cb0b316dc0335e08c2ebbcddfae/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_ASSEMBLY_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\pico_mem_ops\mem_ops_aeabi.S" -o CMakeFiles\test.dir\9a812cb0b316dc0335e08c2ebbcddfae\pico-sdk\src\rp2_common\pico_mem_ops\mem_ops_aeabi.S.s
 
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.obj: mqtt_client_test/CMakeFiles/test.dir/flags.make
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.obj: M:/Apps/Raspberry\ Pi/Pico\ SDK\ v1.5.1/pico-sdk/src/rp2_common/pico_standard_link/crt0.S
@@ -639,11 +639,11 @@ mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-s
 
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing ASM source to CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_PREPROCESSED_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\pico_standard_link\crt0.S" > CMakeFiles\test.dir\M_\Apps\Raspberry_Pi\Pico_SDK_v1.5.1\pico-sdk\src\rp2_common\pico_standard_link\crt0.S.i
 
 mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling ASM source to assembly CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_ASM_CREATE_ASSEMBLY_SOURCE
+	cd /d C:\Users\johan\ONEDRI~1\SEMEST~3\ELEC~1.DIG\PROYEC~1\PicoHome\Software\build\MQTT_C~1 && "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\gcc-arm-none-eabi\bin\arm-none-eabi-gcc.exe" $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S "M:\Apps\Raspberry Pi\Pico SDK v1.5.1\pico-sdk\src\rp2_common\pico_standard_link\crt0.S" -o CMakeFiles\test.dir\M_\Apps\Raspberry_Pi\Pico_SDK_v1.5.1\pico-sdk\src\rp2_common\pico_standard_link\crt0.S.s
 
 mqtt_client_test/CMakeFiles/test.dir/499b40f1e381f2fc6e82ae1e521383b2/src/rp2_common/pico_standard_link/new_delete.cpp.obj: mqtt_client_test/CMakeFiles/test.dir/flags.make
 mqtt_client_test/CMakeFiles/test.dir/499b40f1e381f2fc6e82ae1e521383b2/src/rp2_common/pico_standard_link/new_delete.cpp.obj: M:/Apps/Raspberry\ Pi/Pico\ SDK\ v1.5.1/pico-sdk/src/rp2_common/pico_standard_link/new_delete.cpp

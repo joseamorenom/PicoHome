@@ -20,6 +20,7 @@ set(CMAKE_DEPENDS_CHECK_ASM
   "M:/Apps/Raspberry Pi/Pico SDK v1.5.1/pico-sdk/src/rp2_common/pico_float/float_aeabi.S" "C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj"
   "M:/Apps/Raspberry Pi/Pico SDK v1.5.1/pico-sdk/src/rp2_common/pico_standard_link/crt0.S" "C:/Users/johan/OneDrive - Universidad de Antioquia/Semestre VII/Elec. Digital III/Proyecto Final/PicoHome/Software/build/mqtt_client_test/CMakeFiles/test.dir/M_/Apps/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.obj"
   )
+set(CMAKE_ASM_COMPILER_ID "GNU")
 
 # Preprocessor definitions for this target.
 set(CMAKE_TARGET_DEFINITIONS_ASM
