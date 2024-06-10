@@ -17,7 +17,7 @@ int main(void)
     ci.client_user = MQTT_CLIENT_USER;
     ci.client_pass = MQTT_CLIENT_PASS;
     
-    while (!init_mqtt(&client, &ci, MQTT_SEVER_IP2)) {
+    while (!init_mqtt(&client, &ci, MQTT_SEVER_IP1)) {
         printf("It could not connect to the server. Trying again...\n");
     }
     
@@ -25,18 +25,16 @@ int main(void)
         printf("It could not subscribe to the topic\n");
     }
     printf("Subscribed to the topic\n");
-    uint8_t data[4];
-    data[0] = 55;
-    data[1] = 48;
-    data[2] = 48;
+    // char data[2] = "7\0";
 
-    if(publish(client, NULL, MQTT_TOPIC_PUB_NFC, data, 2, 1)) {
+    if(publish(client, NULL, MQTT_TOPIC_PUB_BRIGHTNESS, "100", 2, 1)) {
         printf("Correctly published\n");
     }
+
 
     while(true) {
         __wfi();
     }
-    
+
     return 0;
 }
