@@ -19,6 +19,7 @@
 
 int main(void)
 {
+    sleep_ms(3000);
     stdio_init_all();
     
     

@@ -25,16 +25,16 @@ int main(void)
         printf("It could not subscribe to the topic\n");
     }
     printf("Subscribed to the topic\n");
-    char data[5] = "1480\0";
-    printf("Zero character: %d\n", data[4]);
+    // char data[2] = "7\0";
 
-    if(publish(client, NULL, MQTT_TOPIC_PUB_NFC, data, 2, 1)) {
+    if(publish(client, NULL, MQTT_TOPIC_PUB_BRIGHTNESS, "100", 2, 1)) {
         printf("Correctly published\n");
     }
+
 
     while(true) {
         __wfi();
     }
-    
+
     return 0;
 }

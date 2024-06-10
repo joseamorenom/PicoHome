@@ -1,5 +1,5 @@
 /**
- * \file        lightbulb.c
+ * \file        lightbulb.h
  * \brief
  * \details
  * 

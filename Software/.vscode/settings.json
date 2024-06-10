@@ -2,6 +2,12 @@
     "files.associations": {
         "mqtt_client.h": "c",
         "cyw43_arch.h": "c",
-        "app.h": "c"
+        "app.h": "c",
+        "lightbulb.h": "c",
+        "gpio.h": "c",
+        "app_types.h": "c",
+        "time.h": "c",
+        "types.h": "c",
+        "sen_ky018.h": "c"
     }
 }

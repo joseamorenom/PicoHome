@@ -17,19 +17,9 @@
 #include "pico/stdlib.h"
 #include "pico/time.h"
 #include "mqtt_client.h"
+#include "sen_ky018.h"
+#include "lightbulb.h"
 
-/**
- * @brief Flags to control the application
- * 
- */
-typedef union {
-    uint8_t B; ///< Byte access
-    struct {
-        uint8_t send_light  : 1; ///< Flag to send light data to the broker
-        uint8_t set_light   : 1; ///< Flag to set the light value
-        uint8_t             : 6;
-    };
-} flags_t; 
 
 /**
  * @brief Initialize the application: Light Control Unit

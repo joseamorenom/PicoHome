@@ -1,13 +1,15 @@
-#ifndef MQTT_CLIENT_H
-#define MQTT_CLIENT_H
+#ifndef __MQTT_CLIENT_H
+#define __MQTT_CLIENT_H
 
 #include "pico/cyw43_arch.h"
 #include "lwip/apps/mqtt.h"
 #include "lwip/dns.h"
+#include "types.h"
 
 #define SSID "Hinestroza"
 #define PASS "6B004524"
 
+///< MQTT credentials to connect to the broker Thingspeak
 #define MQTT_CHANNEL_ID "2571668"
 #define MQTT_TOPIC_SUB_BRIGHTNESS "channels/2571668/subscribe/fields/field1"
 #define MQTT_TOPIC_PUB_BRIGHTNESS "channels/2571668/publish/fields/field1"
@@ -19,15 +21,6 @@
 #define MQTT_CLIENT_PASS "Ztf0mwq4qtQ1HRXHxsJ5YWAZ"
 #define MQTT_SEVER_IP1 "18.207.44.162"
 #define MQTT_SEVER_IP2 "54.81.146.55"
-
-/**
- * @brief Struct to store the mqtt client and the client info
- * 
- */
-typedef struct {
-    struct mqtt_connect_client_info_t ci;
-    mqtt_client_t *client;
-}mqtt_t;
 
 /**
  * @brief Function to initialize the wifi module

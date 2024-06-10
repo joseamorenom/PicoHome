@@ -8,11 +8,12 @@
 
 #include <stdio.h>
 #include <stdint.h>
-#include "pico/stdlib.h"
-#include "mqtt_client.h"
 #include <string.h>
+#include "mqtt_client.h"
 
 uint8_t inpub_id;
+volatile flags_t gFlags;    ///< Global flags to control the application
+volatile mqtt_t gMqtt;      ///< Global mqtt client
 
 static bool init_wifi(void)
 {
@@ -57,11 +58,11 @@ bool init_mqtt(mqtt_client_t **client, struct mqtt_connect_client_info_t *ci, co
 static void mqtt_connection_cb(mqtt_client_t *client, void *arg, mqtt_connection_status_t status)
 {
     if(status == MQTT_CONNECT_ACCEPTED) {
-        printf("Conection acepted\n");
+        printf("Connection acepted\n");
         mqtt_set_inpub_callback(client, mqtt_incoming_publish_cb, mqtt_incoming_data_cb, arg);
     
     } else {
-        printf("Conection rejected. Status: %d\n", status);
+        printf("Connection rejected. Status: %d\n", status);
     }
 }
 
@@ -71,28 +72,25 @@ static void mqtt_incoming_publish_cb(void *arg, const char *topic, uint32_t tot_
 
     if(strcmp(topic, MQTT_TOPIC_SUB_BRIGHTNESS) == 0) {
         printf("Received data from BRGTHNESS subscription\n");
-        inpub_id = 0;                       /*<! Si el tema es el tema por defecto el id de la publicación es 0*/
-    }
-    else if(strcmp(topic, MQTT_TOPIC_PUB_BRIGHTNESS) == 0) {
-        printf("Received data from BRGTHNESS publication\n");
-        inpub_id = 1;                       /*<! Si lo que se recibe es una respuesta luego de publicar */
+        inpub_id = 0; ///< Set the id of the incoming data
     }
 }
 
 static void mqtt_incoming_data_cb(void *arg, const uint8_t *data, uint16_t len, uint8_t flags)
 {
     printf("Incoming publish payload with length %d, flags %u\n", len, (unsigned int)flags);
-    uint8_t in_data[len];
-    memcpy(in_data, data, len);
     if(flags && MQTT_DATA_FLAG_LAST) { ///< The last data was received
-
         switch (inpub_id) 
         {
         case 0:
-            printf("BRIGHTNESS: %s\n", in_data);
-            break;
-        case 1:
-            printf("RESPONSE: %s\n", in_data);
+            if (len <= sizeof(gMqtt.data.brightness) - 1) {
+                memcpy((void *)gMqtt.data.brightness, data, len);
+                gFlags.broker.brightness = 1;
+                printf("BRIGHTNESS: %s\n", gMqtt.data.brightness);
+            }
+            else {
+                printf("ERROR: data too long\n");
+            }
             break;
         default:
             break;
