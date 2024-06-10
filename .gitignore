@@ -402,6 +402,10 @@ FodyWeavers.xsd
 .vscode
 _deps
 cmake-*
+
 ./Software/build/
+
+Software/build/
+
 .DS_Store
 *.pdf
