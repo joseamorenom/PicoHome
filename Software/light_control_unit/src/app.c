@@ -13,17 +13,16 @@
 
 #define KY018_GPIO 26           ///< GPIO of the KY-018 sensor
 
-#define LIGHTBULB_GPIO 18       ///< GPIO of the lightbulb
+#define LIGHTBULB_GPIO 19       ///< GPIO of the lightbulb
 #define LIGTHBULB_FREQUENCY 60  ///< 60Hz
 #define LIGHTBULB_DUTY_CYCLE 50 ///< 50%
 
-#define SEND_DATA_TIME_MS 1000*5  ///< Send data to the broker every 2 seconds
+#define SEND_DATA_TIME_MS 1000*5  ///< Send data to the broker every 5 seconds
 
 extern volatile flags_t gFlags;
 extern mqtt_t gMqtt;
 sen_ky018_t gKy018;
 lightbulb_t gLightbulb;
-volatile char Hola[4];
 
 void app_init(void)
 {
@@ -34,11 +33,9 @@ void app_init(void)
     ky018_init(&gKy018, KY018_GPIO);
     lightbulb_init(&gLightbulb, LIGHTBULB_GPIO, LIGTHBULB_FREQUENCY, LIGHTBULB_DUTY_CYCLE);
 
-    printf("System initialized\n");
     ///< Configure the alarm to send the brightness data to the broker
     struct repeating_timer timer;
     add_repeating_timer_ms(SEND_DATA_TIME_MS, send_brightness_timer_cb, NULL, &timer);
-    printf("Timer configured\n");
 
     app_main();
 
@@ -59,7 +56,7 @@ void app_main(void)
             if (gFlags.error_sub_mqtt) {
                 printf("Error: sub_mqtt\n");
                 gFlags.error_sub_mqtt = 0;
-                subscribe_topic(&gMqtt.client, MQTT_TOPIC_SUB_BRIGHTNESS);
+                subscribe_topic(&gMqtt.client, MQTT_TOPIC_SUB_USER_BRIGHTNESS);
             }
             if (gFlags.error_pub_mqtt) {
                 printf("Error: pub_mqtt\n");
@@ -102,7 +99,7 @@ void app_init_mqtt(void)
     }
     printf("MQTT client initialized\n");
     
-    while (!subscribe_topic(&gMqtt.client, MQTT_TOPIC_SUB_BRIGHTNESS)) {
+    while (!subscribe_topic(&gMqtt.client, MQTT_TOPIC_SUB_USER_BRIGHTNESS)) {
         printf("It could not subscribe to the topic\n");
         gFlags.error_sub_mqtt = 1;
     }

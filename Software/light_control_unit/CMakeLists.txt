@@ -16,7 +16,6 @@ add_executable(light_control_unit
 target_link_libraries(light_control_unit
     pico_stdlib
     app
-    lightbulb_lib
     )
 
 target_include_directories(light_control_unit PUBLIC ../include)

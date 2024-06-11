@@ -72,11 +72,11 @@ static void mqtt_incoming_publish_cb(void *arg, const char *topic, uint32_t tot_
 {
     // printf("Incoming publish at topic %s with total length %u\n", topic, (unsigned int)tot_len);
 
-    if(strcmp(topic, MQTT_TOPIC_SUB_BRIGHTNESS) == 0) {
+    if(strcmp(topic, MQTT_TOPIC_SUB_USER_BRIGHTNESS) == 0) {
         printf("Received data from BRGTHNESS subscription\n");
         inpub_id = 0; ///< Set the id of the incoming data
     }
-    else if (strcmp(topic, MQTT_TOPIC_SUB_BLINDS) == 0) {
+    else if (strcmp(topic, MQTT_TOPIC_SUB_USER_BLINDS) == 0) {
         printf("Received data from BLINDS subscription\n");
         inpub_id = 1; ///< Set the id of the incoming data
     }
