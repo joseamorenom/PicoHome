@@ -25,14 +25,23 @@
 typedef union {
     uint16_t B; ///< Byte access
     struct {
-        uint8_t brightness  : 1; ///< Flag that indicates that light data was received from the broker
-        uint8_t             : 7;
-    }broker;
-    struct {
-        uint8_t send_light  : 1; ///< Flag to send light data to the broker
-        uint8_t             : 7;
-    }sys;
-} flags_t; 
+        /// @brief Flags to control broker events
+        uint8_t broker_brightness   : 1; ///< Flag that indicates that light data was received from the broker
+        uint8_t broker_blinds       : 1; ///< Flag that indicates that blinds data was received from the broker
+
+        /// @brief Flags to control the system events
+        uint8_t sys_send_brightness  : 1; ///< Flag to send light data to the broker
+        uint8_t sys_send_blinds      : 1; ///< Flag to send blinds data to the broker
+    
+        /// @brief Flags to control the errors
+        uint8_t error_init_mqtt     : 1; ///< Mqtt client initilization has an error
+        uint8_t error_pub_mqtt      : 1; ///< Error sending data to the broker
+        uint8_t error_sub_mqtt      : 1; ///< Error subscribing to a topic
+
+        uint16_t                    : 9;
+    };
+
+}flags_t; 
 
 /**
  * @brief Struct to store the mqtt client and the client info
@@ -43,12 +52,13 @@ typedef struct {
     mqtt_client_t *client;
     struct {
         char brightness[4]; ///< Light data
+        char blinds[4];     ///< Blinds data
     }data;
 }mqtt_t;
 
 
 extern volatile flags_t gFlags; ///< Global flags to control the application
-extern volatile mqtt_t gMqtt; ///< Global mqtt client
+extern mqtt_t gMqtt; ///< Global mqtt client
 
 
 #endif // __TYPES_H__

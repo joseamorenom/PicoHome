@@ -11,9 +11,9 @@
 #include <string.h>
 #include "mqtt_client.h"
 
-uint8_t inpub_id;
-volatile flags_t gFlags;    ///< Global flags to control the application
-volatile mqtt_t gMqtt;      ///< Global mqtt client
+uint8_t inpub_id; ///< Id of the incoming data
+flags_t volatile gFlags; ///< Flags of the system
+mqtt_t gMqtt; ///< MQTT data
 
 static bool init_wifi(void)
 {
@@ -34,8 +34,9 @@ bool init_mqtt(mqtt_client_t **client, struct mqtt_connect_client_info_t *ci, co
     err_t err;
 
 
-    while(!init_wifi()) {
+    if(!init_wifi()) {
         printf("ERROR: wifi module not initialized. Trying again...\n");
+        return false;
     }
 
     *client = mqtt_client_new();
@@ -63,30 +64,49 @@ static void mqtt_connection_cb(mqtt_client_t *client, void *arg, mqtt_connection
     
     } else {
         printf("Connection rejected. Status: %d\n", status);
+        gFlags.error_init_mqtt = 1; ///< Set the error flag
     }
 }
 
 static void mqtt_incoming_publish_cb(void *arg, const char *topic, uint32_t tot_len)
 {
-    printf("Incoming publish at topic %s with total length %u\n", topic, (unsigned int)tot_len);
+    // printf("Incoming publish at topic %s with total length %u\n", topic, (unsigned int)tot_len);
 
     if(strcmp(topic, MQTT_TOPIC_SUB_BRIGHTNESS) == 0) {
         printf("Received data from BRGTHNESS subscription\n");
         inpub_id = 0; ///< Set the id of the incoming data
     }
+    else if (strcmp(topic, MQTT_TOPIC_SUB_BLINDS) == 0) {
+        printf("Received data from BLINDS subscription\n");
+        inpub_id = 1; ///< Set the id of the incoming data
+    }
+    else {
+        printf("ERROR: topic not found\n");
+    }
 }
 
 static void mqtt_incoming_data_cb(void *arg, const uint8_t *data, uint16_t len, uint8_t flags)
 {
-    printf("Incoming publish payload with length %d, flags %u\n", len, (unsigned int)flags);
+    // printf("Incoming publish payload with length %d, flags %u\n", len, (unsigned int)flags);
     if(flags && MQTT_DATA_FLAG_LAST) { ///< The last data was received
         switch (inpub_id) 
         {
         case 0:
-            if (len <= sizeof(gMqtt.data.brightness) - 1) {
+            ///< It is (-1) to take into account the null final character of the string
+            if (len <= sizeof(gMqtt.data.brightness) - 1) { ///< Check if the data is not too long - Validation
                 memcpy((void *)gMqtt.data.brightness, data, len);
-                gFlags.broker.brightness = 1;
+                gFlags.broker_brightness = 1;
                 printf("BRIGHTNESS: %s\n", gMqtt.data.brightness);
+            }
+            else {
+                printf("ERROR: data too long\n");
+            }
+            break;
+        case 1:
+            if (len <= sizeof(gMqtt.data.blinds) - 1) { ///< Check if the data is not too long - Validation
+                memcpy((void *)gMqtt.data.blinds, data, len);
+                gFlags.broker_blinds = 1;
+                printf("BLINDS: %s\n", gMqtt.data.blinds);
             }
             else {
                 printf("ERROR: data too long\n");
@@ -120,6 +140,7 @@ static void mqtt_pub_request_cb(void *arg, err_t result)
 
     if(result != ERR_OK) {
         printf("ERROR: publication failed - result: %d\n", result);
+        gFlags.error_pub_mqtt = 1; ///< Set the error flag
     }
     else {
         printf("Publication success - result: %d\n", result);

@@ -14,8 +14,11 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
 #include "pico/stdlib.h"
+#include "hardware/sync.h"
 #include "pico/time.h"
+
 #include "mqtt_client.h"
 #include "sen_ky018.h"
 #include "lightbulb.h"
@@ -27,6 +30,25 @@
  */
 void app_init(void);
 
+/**
+ * @brief Main function of the application
+ * This has to be called in the main function of the application.
+ * Contains the main loop of the application and checks the flags to execute the corresponding functions.
+ * 
+ */
+void app_main(void);
 
+/**
+ * @brief Initialize the MQTT client
+ * 
+ */
+void app_init_mqtt(void);
+
+/**
+ * @brief Callback function of the timer to send the brightness data to the broker
+ * 
+ * @param t 
+ */
+bool send_brightness_timer_cb(struct repeating_timer *t);
 
 #endif // __APP_H__

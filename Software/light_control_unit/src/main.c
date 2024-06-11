@@ -12,16 +12,18 @@
  * \date        09/06/2024
  * \copyright   Unlicensed
  */
+
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "app.h"
-
 
 int main(void)
 {
     sleep_ms(3000);
     stdio_init_all();
-    
+
+    ///< Initialize and run the application
+    app_init();
     
     return 0;
 }
