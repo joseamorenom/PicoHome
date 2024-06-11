@@ -8,6 +8,7 @@
         "app_types.h": "c",
         "time.h": "c",
         "types.h": "c",
-        "sen_ky018.h": "c"
+        "sen_ky018.h": "c",
+        "stdlib.h": "c"
     }
 }

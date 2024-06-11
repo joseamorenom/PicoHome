@@ -26,10 +26,10 @@
 typedef struct {
     uint8_t gpio;
     uint8_t slice;
-    uint16_t duty_cycle;
-    uint16_t frequency;
-    uint32_t wrap;
-} lightbulb_t;
+    uint16_t duty_cycle;    ///< range 0-1000, where: 0 -> 0%, 1000 -> 100%
+    uint16_t frequency;     ///< frequency in Hz
+    uint32_t wrap;          ///< wrap value
+}lightbulb_t;
 
 
 /**
@@ -52,6 +52,19 @@ static inline void lightbulb_set_duty(lightbulb_t *lightbulb, uint16_t duty_cycl
 {
     lightbulb->duty_cycle = duty_cycle;
     pwm_set_chan_level(lightbulb->slice, PWM_CHAN_A, duty_cycle*lightbulb->wrap/1000);
+}
+
+/**
+ * @brief Set the brightness of the lightbulb
+ * 
+ * @param lightbulb 
+ * @param brightness range 0-100, where: 0 -> 0%, 100 -> 100%
+ * @return true if the brightness is set, false otherwise
+ */
+static inline void lightbulb_set_brightness(lightbulb_t *lightbulb, uint16_t brightness)
+{
+    if (brightness > 100) return;
+    lightbulb_set_duty(lightbulb, brightness*10);
 }
 
 /**

@@ -5,11 +5,11 @@ target_include_directories(app PUBLIC ../include/)
 
 target_link_libraries(app
     pico_stdlib
-    mqtt_client_lib
     pico_time
     hardware_sync
-    hardware_pwm
-    hardware_adc
+    mqtt_client_lib
+    lightbulb_lib
+    sen_ky018_lib
     )
 
 # Lightbulb library
