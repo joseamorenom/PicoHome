@@ -20,6 +20,7 @@
 #include "pico/flash.h"
 #include "hardware/sync.h"
 #include "hardware/pwm.h"
+#include "hardware/watchdog.h"
 
 #include "mqtt_client.h"
 #include "keypad.h"

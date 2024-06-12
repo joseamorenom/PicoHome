@@ -31,12 +31,13 @@
 #define BUZZER_GPIO 27  ///< KY-006 buzzer
 
 ///< Other definitions
-#define SEND_DOOR_TIME_S 5          ///< Send the door state to the broker every 5 seconds
-#define CHECK_TAG_TIME_MS 1000*1    ///< Time to check the presence of a tag
-#define SYS_PASS 1234               ///< System password
-#define SYS_MAX_TRIES 3             ///< Maximum number of tries to enter the password
+#define SEND_DOOR_TIME_S 5           ///< Send the door state to the broker every 5 seconds
+#define CHECK_TAG_TIME_MS 1000*1     ///< Time to check the presence of a tag
+#define SYS_PASS 1234                ///< System password
+#define SYS_MAX_TRIES 3              ///< Maximum number of tries to enter the password
 #define SYS_ALARM_WAIT_MS 30*1000    ///< Time to wait to turn on the PIR sensor after the alarm is activated
 #define SYS_SEND_ALARM_TIME_S 10     ///< Send the alarm state to the broker every 5 seconds
+#define SYS_WHATCHDOG_TIME_MS 10*1000   ///< Watchdog time
 
 extern volatile flags_t gFlags;
 extern mqtt_t gMqtt;
@@ -54,6 +55,9 @@ enum {
 
 void app_init(void)
 {
+    // Enable the watchdog, requiring the watchdog to be updated every 100ms or the chip will reboot
+    // second arg is pause on debug which means the watchdog will pause when stepping through code
+    watchdog_enable(SYS_WHATCHDOG_TIME_MS, 1);
 
     gFlags.B = 0; ///< Clear all flags
     ///< Initialize the system modules
@@ -73,6 +77,7 @@ void app_init(void)
     irq_set_exclusive_handler(PWM_IRQ_WRAP, pwm_handler);
     // gpio_add_raw_irq_handler_masked() //-> I like this function, but it is not implemented yet.
 
+    watchdog_update();
     app_main();
 }
 
@@ -93,21 +98,24 @@ void app_main(void)
                 gFlags.error_sub_mqtt = 0;
                 subscribe_topic(&gMqtt.client, MQTT_TOPIC_SUB_USER_ALARM);
             }
-            // if (gFlags.error_pub_mqtt) {
-            //     printf("Error: pub_mqtt\n");
-            //     gFlags.error_pub_mqtt = 0;
-            //     publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_BRIGHTNESS, gMqtt.data.brightness, 2, 1);
-            // }
 
             ///< Check the flags to execute the corresponding functions
             if (gFlags.broker_alarm){ ///< Ther user turn off the alarm
                 gFlags.broker_alarm = 0;
                 if (strcmp(gMqtt.data.alarm, "1") == 0){
                     gSystemState = INDOOR;
+                    gFlags.sys_send_alarm = 0;
                     pir_set_irq_enabled(&gPIR, false);
                     gpio_put(BUZZER_GPIO, 0);
                     printf("Change to indoor\n");
                 }
+                // else if(strcmp(gMqtt.data.alarm, "0") == 0){
+                //     gSystemState = ALARM;
+                //     gFlags.sys_send_alarm = 1;
+                //     gFlags.sys_check_tag = 1;
+                //     pir_set_irq_enabled(&gPIR, true);
+                //     printf("Change to alarm\n");
+                // }
             }
             if (gFlags.sys_keypad_switch){
                 gFlags.sys_keypad_switch = 0;
@@ -129,10 +137,12 @@ void app_main(void)
                     snprintf(str, 12, "%d,%08x", gNFC.tag.uid_reg_access, gNFC.tag.uid);
                 }
                 publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_NFC, str, 2, true);
+                printf("Tag sent to the broker: %08x\n", gNFC.tag.uid);
             }
             if (gFlags.sys_send_door){
                 gFlags.sys_send_door = 0;
                 publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_DOOR, door_is_open(&gDoor)?"1":"0", 2, true);
+                printf("Door state sent to the broker: %d\n", door_is_open(&gDoor));
             }
             if (gFlags.sys_key_pressed){
                 gFlags.sys_key_pressed = 0;
@@ -145,6 +155,7 @@ void app_main(void)
                 publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_ALARM, "1", 2, true);
                 gSystemState = INTRUDER;
                 gpio_put(BUZZER_GPIO, 1);
+                printf("Alarm sent to the broker\n");
             }
         }
         __wfi();
@@ -226,6 +237,9 @@ void app_init_mqtt(void)
 
 bool check_tag_timer_cb(struct repeating_timer *t)
 {
+    ///< Update the watchdog
+    watchdog_update();
+
     // Check for a tag entering
     if (door_is_open(&gDoor) && !gNFC.tag.is_present){ ///< Just check the tag if the door is locked
         if (nfc_is_new_tag(&gNFC)){
@@ -256,6 +270,7 @@ int64_t alarm_timer_cb(alarm_id_t id, void *data)
         pir_set_irq_enabled(&gPIR, true);
         gPIR.pass_correct = false;
         gSystemState = ALARM;
+        printf("Alarm timeout: Change to alarm\n");
         break;
 
     case ALARM:
@@ -285,6 +300,7 @@ void gpio_cb(uint gpio, uint32_t events)
         if (gpio == gPIR.gpio){
             pir_set_irq_enabled(&gPIR, false); ///< Just one interruption is allowed
             add_alarm_in_ms(SYS_ALARM_WAIT_MS, alarm_timer_cb, NULL, false);
+            printf("Set timer for PIR sensor\n");
         }
         else if (!gKeyPad.KEY.dbnc){
             kp_set_irq_enabled(&gKeyPad, true, false); ///< Disable the columns interrupt

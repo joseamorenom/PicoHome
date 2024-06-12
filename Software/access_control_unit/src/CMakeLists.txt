@@ -9,6 +9,7 @@ target_link_libraries(app_access
     pico_flash
     hardware_pwm
     hardware_sync
+    hardware_watchdog
     mqtt_client_lib
     keypad_lib
     nfc_lib

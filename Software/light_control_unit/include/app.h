@@ -17,6 +17,7 @@
 #include <string.h>
 #include "pico/stdlib.h"
 #include "hardware/sync.h"
+#include "hardware/watchdog.h"
 #include "pico/time.h"
 
 #include "mqtt_client.h"

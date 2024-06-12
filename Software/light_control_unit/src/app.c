@@ -18,6 +18,7 @@
 #define LIGHTBULB_DUTY_CYCLE 50 ///< 50%
 
 #define SEND_DATA_TIME_MS 1000*5  ///< Send data to the broker every 5 seconds
+#define SYS_WHATCHDOG_TIME_MS 30*1000   ///< Watchdog time
 
 extern volatile flags_t gFlags;
 extern mqtt_t gMqtt;
@@ -26,6 +27,9 @@ lightbulb_t gLightbulb;
 
 void app_init(void)
 {
+    // Enable the watchdog, requiring the watchdog to be updated every 100ms or the chip will reboot
+    // second arg is pause on debug which means the watchdog will pause when stepping through code
+    watchdog_enable(SYS_WHATCHDOG_TIME_MS, 1);
 
     gFlags.B = 0; ///< Clear all flags
     ///< Initialize the system modules
@@ -36,6 +40,8 @@ void app_init(void)
     ///< Configure the alarm to send the brightness data to the broker
     struct repeating_timer timer;
     add_repeating_timer_ms(SEND_DATA_TIME_MS, send_brightness_timer_cb, NULL, &timer);
+
+    watchdog_update();
 
     app_main();
 
@@ -110,6 +116,10 @@ void app_init_mqtt(void)
 
 bool send_brightness_timer_cb(struct repeating_timer *t)
 {
+
+    ///< Update the watchdog
+    watchdog_update();
+
     gFlags.sys_send_brightness = 1;
 
     return true;
