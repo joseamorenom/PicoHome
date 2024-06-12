@@ -2,14 +2,13 @@
  * \file        keypad_polling_irq.c
  * \brief
  * \details
- * \author      MST_CDA
+ * \author      PicoHome
  * \version     0.0.2
  * \date        03/05/2024
  * \copyright   Unlicensed
  */
 
-#include "keypad_irq.h"
-#include "app.h"
+#include "keypad.h"
 
 uint32_t gDBNC_TIME;
 
@@ -79,13 +78,13 @@ void kp_decode(key_pad_t *kpad){
         kpad->KEY.dkey = 0x0C;
         break;
     case 0x81:
-        kpad->KEY.dkey = 0x0E;
+        kpad->KEY.dkey = 0x0E; ///< *
         break;
     case 0x41:
         kpad->KEY.dkey = 0x00;
         break;
     case 0x21:
-        kpad->KEY.dkey = 0x0F;
+        kpad->KEY.dkey = 0x0F; ///< #
         break;
     case 0x11:
         kpad->KEY.dkey = 0x0D;

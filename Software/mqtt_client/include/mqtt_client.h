@@ -11,17 +11,22 @@
 
 #define MQTT_CHANNEL_ID "2571668"
 
-///< MQTT channel publish and subscribe topics
+///< -----------  MQTT TOPICS -------------- <///
 
+///< MQTT topics for the light control unit
 #define MQTT_TOPIC_SUB_USER_BRIGHTNESS "channels/2571668/subscribe/fields/field1"
 #define MQTT_TOPIC_PUB_BRIGHTNESS "channels/2571668/publish/fields/field2"
 
+///< MQTT topics for the blinds control unit
 #define MQTT_TOPIC_SUB_USER_BLINDS "channels/2571668/subscribe/fields/field3"
 #define MQTT_TOPIC_PUB_BLINDS "channels/2571668/publish/fields/field4"
 
+///< MQTT topics for the access control unit
 #define MQTT_TOPIC_PUB_NFC "channels/2571668/publish/fields/field5"
-#define MQTT_TOPIC_PUB_PIR "channels/2571668/publish/fields/field6"
-#define MQTT_TOPIC_PUB_DOOR "channels/2571668/publish/fields/field7"
+#define MQTT_TOPIC_PUB_DOOR "channels/2571668/publish/fields/field6"
+
+#define MQTT_TOPIC_SUB_USER_ALARM "channels/2571668/subscribe/fields/field7"
+#define MQTT_TOPIC_PUB_ALARM "channels/2571668/publish/fields/field8"
 
 ///< MQTT credentials of each device
 #define MQTT_CLIENT_ID_LIGHT_CONTROL_UNIT "LwU7EwAXNRkxKxQZISAJPBw"

@@ -10,6 +10,9 @@
         "types.h": "c",
         "sen_ky018.h": "c",
         "stdlib.h": "c",
-        "sync.h": "c"
+        "sync.h": "c",
+        "keypad_irq.h": "c",
+        "timer.h": "c",
+        "pir.h": "c"
     }
 }

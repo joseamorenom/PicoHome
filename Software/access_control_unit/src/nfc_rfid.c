@@ -87,9 +87,11 @@ void nfc_init_as_spi(nfc_rfid_t *nfc, spi_inst_t *_spi, uint8_t sck, uint8_t mos
         nfc->keyByte[i] = 0xFF;
     }
 
-    // Initialize the configuration of the MFRC522 (comment or uncomment the desired configuration)
-    // nfc_config_mfrc522_irq(nfc); // IRQ's configuration
-    // nfc_config_blocking(nfc);    // Blocking configuration
+    ///< Initialize the uid data base
+	for (uint8_t i = 0; i < SIZE_UID_DATA_BASE; i++) {
+		nfc->uid_data_base[i] = 0x1B541C5F + i;
+	}
+
 }
 
 bool nfc_is_new_tag(nfc_rfid_t *nfc)
@@ -563,3 +565,27 @@ bool nfc_get_data_tag(nfc_rfid_t *nfc)
 	return true;
 } // End of nfc_get_data_tag
 
+bool nfc_check_tag(nfc_rfid_t *nfc)
+{
+	nfc_read_card_serial(nfc); ///< Read the serial number of the card
+	// Print the serial number of the card
+	printf("\nCard UID: ");
+	uint32_t uid = 0x00;
+	for (int i = 0; i < nfc->uid.size; i++) {
+		printf("%02X", nfc->uid.uidByte[i]);
+		uid = (uid << 8) | nfc->uid.uidByte[i];
+	}
+	printf("\n");
+
+	// Check if the card is in the data base
+	for (uint8_t i = 0; i < SIZE_UID_DATA_BASE; i++) {
+		if (uid == nfc->uid_data_base[i]) {
+			nfc->tag.is_present = true;
+			nfc->tag.uid = uid;
+			return true;
+		}
+	}
+
+	nfc->tag.is_present = false;
+	return false;
+}

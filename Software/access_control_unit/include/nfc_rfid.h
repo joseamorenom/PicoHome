@@ -25,7 +25,7 @@
 #define MF_KEY_SIZE             6	///< A Mifare Crypto1 key is 6 bytes.
 #define READ_BIT 0x80 ///< Bit used in I2C to read a register
 #define BUFFER_SIZE  1 ///< Buffer size for the SPI communication
-
+#define SIZE_UID_DATA_BASE 5 ///< Size of the UID data base
 
 /**
  * \typedef nfc_rfic_t
@@ -61,7 +61,7 @@ typedef struct
 
     enum {NONE, ADMIN, INV, USER} userType;
 
-    uint32_t uid_data_base[5]; ///< Data base of the UID
+    uint32_t uid_data_base[SIZE_UID_DATA_BASE]; ///< Data base of the UID
     
 }nfc_rfid_t;
 
@@ -407,6 +407,13 @@ uint8_t nfc_calculate_crc(nfc_rfid_t *nfc, uint8_t *data, uint8_t len, uint8_t *
  * @return true if the ID is valid (range 1-7), false otherwise.
  */
 bool nfc_get_data_tag(nfc_rfid_t *nfc);
+
+/**
+ * @brief Check the tag in the NFC.
+ * 
+ * @param nfc 
+ */
+bool nfc_check_tag(nfc_rfid_t *nfc);
 
 
 

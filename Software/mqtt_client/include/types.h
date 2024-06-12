@@ -32,6 +32,9 @@ typedef union {
         /// @brief Flags to control the system events
         uint8_t sys_send_brightness  : 1; ///< Flag to send light data to the broker
         uint8_t sys_send_blinds      : 1; ///< Flag to send blinds data to the broker
+        uint8_t sys_check_tag        : 1; ///< Flag to check the presence of a tag
+        uint8_t sys_keypad_switch    : 1; ///< Flag to switch the keypad irq from cols to rows
+        uint8_t sys_key_pressed      : 1; ///< Flag to process the key pressed
     
         /// @brief Flags to control the errors
         uint8_t error_init_mqtt     : 1; ///< Mqtt client initilization has an error

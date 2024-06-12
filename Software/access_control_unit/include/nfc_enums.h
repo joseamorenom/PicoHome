@@ -68,6 +68,7 @@ typedef struct _tag
     uint32_t amount;
     uint32_t purchase_v;
     uint32_t sale_v;
+    uint32_t uid;
     bool is_present; ///< Flag that indicates that a tag is being entered
 }tag_t;
 

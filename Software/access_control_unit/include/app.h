@@ -16,13 +16,15 @@
 #include <stdio.h>
 #include <string.h>
 #include "pico/stdlib.h"
-#include "hardware/sync.h"
 #include "pico/time.h"
+#include "hardware/sync.h"
+#include "hardware/pwm.h"
 
 #include "mqtt_client.h"
-#include "keypad_irq.h"
+#include "keypad.h"
 #include "nfc_rfid.h"
-
+#include "pir.h"
+#include "door.h"
 
 /**
  * @brief Initialize the application: Light Control Unit
@@ -45,11 +47,27 @@ void app_main(void);
 void app_init_mqtt(void);
 
 /**
- * @brief Callback function of the timer to send the brightness data to the broker
+ * @brief This function initializes a PWM signal as a periodic interrupt timer (PIT).
+ * Each slice will generate interruptions at a period of milis miliseconds.
+ * Due to each slice share clock counter (period), events with diferents periods 
+ * must not be generated in the same slice, i.e, they must not share channel.
+ * 
+ * @param slice 
+ * @param milis Period of the PWM interruption in miliseconds
+ * @param enable 
+ */
+void pwm_set_as_pit(uint8_t slice, uint16_t milis, bool enable);
+
+// ------------------------------------------------------------------------
+// -------------------- CALLBACK AND HANDLER FUNCTIONS --------------------
+// ------------------------------------------------------------------------
+
+/**
+ * @brief Callback function of the timer to check the presence of a tag
  * 
  * @param t 
  */
-bool send_brightness_timer_cb(struct repeating_timer *t);
+bool check_tag_timer_cb(struct repeating_timer *t);
 
 /**
  * @brief This function is the callback function for the GPIO interruptions.
@@ -58,5 +76,23 @@ bool send_brightness_timer_cb(struct repeating_timer *t);
  * @param mask 
  */
 void gpio_cb(uint gpio, uint32_t events);
+
+/**
+ * @brief This function is the handler for the PWM interruptions.
+ * 
+ */
+void pwm_handler(void);
+
+// -------------------------------------------------------------
+// ---------------------- Check functions ----------------------
+// -------------------------------------------------------------
+
+static inline bool checkNumber(uint8_t number){
+    return (number >= 0 && number <= 9);
+}
+
+static inline bool checkLetter(uint8_t letter){
+    return (letter >= 0x0A && letter <= 0x0D);
+}
 
 #endif // __APP_H__
