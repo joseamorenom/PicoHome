@@ -23,7 +23,7 @@ endif()
 add_subdirectory(mqtt_client_test)
 add_subdirectory(mqtt_client)
 add_subdirectory(access_control_unit) # PicoHome Node
-# add_subdirectory(blinds_control) # PicoHome Node
+add_subdirectory(blinds_control_unit) # PicoHome Node
 add_subdirectory(light_control_unit) # PicoHome Node 
 
 #add_subdirectory(polling_microPython)
