@@ -1,9 +1,9 @@
 # APP library
-add_library(app STATIC app.c)
+add_library(app_light STATIC app.c)
 
-target_include_directories(app PUBLIC ../include/)
+target_include_directories(app_light PUBLIC ../include/)
 
-target_link_libraries(app
+target_link_libraries(app_light
     pico_stdlib
     pico_time
     hardware_sync
