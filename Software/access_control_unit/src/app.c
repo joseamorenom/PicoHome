@@ -31,8 +31,12 @@
 #define BUZZER_GPIO 27  ///< KY-006 buzzer
 
 ///< Other definitions
-#define SEND_DOOR_TIME_MS 1000*10 ///< Time to send the brightness data to the broker
-#define CHECK_TAG_TIME_MS 1000*1 ///< Time to check the presence of a tag
+#define SEND_DOOR_TIME_S 5          ///< Send the door state to the broker every 5 seconds
+#define CHECK_TAG_TIME_MS 1000*1    ///< Time to check the presence of a tag
+#define SYS_PASS 1234               ///< System password
+#define SYS_MAX_TRIES 3             ///< Maximum number of tries to enter the password
+#define SYS_ALARM_WAIT_MS 30*1000    ///< Time to wait to turn on the PIR sensor after the alarm is activated
+#define SYS_SEND_ALARM_TIME_S 10     ///< Send the alarm state to the broker every 5 seconds
 
 extern volatile flags_t gFlags;
 extern mqtt_t gMqtt;
@@ -41,7 +45,12 @@ nfc_rfid_t gNFC;
 pir_t gPIR;
 door_t gDoor;
 
-enum {INDOOR, OUTDOOR} gSystemState;
+enum {
+    INDOOR, ///< Means: there is no alarm activated. It includes when the user goes out or comes in to the house
+    ALARM,  ///< Means: the alarm is activated by the user with the key (0x0E -> *),
+            ///< and the PIR sensor is waiting to detect a movement 
+    INTRUDER ///< Means: incorrect password entered (or timeout) and the PIR sensor detected a movement
+} gSystemState;
 
 void app_init(void)
 {
@@ -49,11 +58,11 @@ void app_init(void)
     gFlags.B = 0; ///< Clear all flags
     ///< Initialize the system modules
     gSystemState = INDOOR;
-    app_init_mqtt();
     kp_init(&gKeyPad, KEYPAD_ROWS_LSB_GPIO, KEYPAD_COLS_LSB_GPIO, KEYPAD_DBNC_TIME_MS, true);
     nfc_init_as_spi(&gNFC, spi1, NFC_SCK, NFC_MOSI, NFC_MISO, NFC_CS, 22, NFC_RST);
     pir_init(&gPIR, PIR_GPIO, false);
-    door_init(&gDoor, RELAY_GPIO, LOCK_GPIO);
+    door_init(&gDoor, RELAY_GPIO, LOCK_GPIO, SEND_DOOR_TIME_S);
+    app_init_mqtt();
 
     ///< Configure the alarm to send the brightness data to the broker
     struct repeating_timer timer;
@@ -62,10 +71,9 @@ void app_init(void)
     ///< Set the PWM interrupt as PIT
     pwm_set_as_pit(KEYPAD_PWM_SLICE, KEYPAD_DBNC_TIME_MS, false); // 100ms for the button debouncer
     irq_set_exclusive_handler(PWM_IRQ_WRAP, pwm_handler);
-    // gpio_add_raw_irq_handler_masked() //-> I like this function.
+    // gpio_add_raw_irq_handler_masked() //-> I like this function, but it is not implemented yet.
 
     app_main();
-
 }
 
 void app_main(void)
@@ -85,12 +93,22 @@ void app_main(void)
                 gFlags.error_sub_mqtt = 0;
                 subscribe_topic(&gMqtt.client, MQTT_TOPIC_SUB_USER_ALARM);
             }
-            if (gFlags.error_pub_mqtt) {
-                printf("Error: pub_mqtt\n");
-                gFlags.error_pub_mqtt = 0;
-                publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_BRIGHTNESS, gMqtt.data.brightness, 2, 1);
-            }
+            // if (gFlags.error_pub_mqtt) {
+            //     printf("Error: pub_mqtt\n");
+            //     gFlags.error_pub_mqtt = 0;
+            //     publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_BRIGHTNESS, gMqtt.data.brightness, 2, 1);
+            // }
+
             ///< Check the flags to execute the corresponding functions
+            if (gFlags.broker_alarm){ ///< Ther user turn off the alarm
+                gFlags.broker_alarm = 0;
+                if (strcmp(gMqtt.data.alarm, "1") == 0){
+                    gSystemState = INDOOR;
+                    pir_set_irq_enabled(&gPIR, false);
+                    gpio_put(BUZZER_GPIO, 0);
+                    printf("Change to indoor\n");
+                }
+            }
             if (gFlags.sys_keypad_switch){
                 gFlags.sys_keypad_switch = 0;
                 gKeyPad.cols = gpio_get_all() & (0x0000000f << gKeyPad.KEY.clsb); ///< Get columns gpio values
@@ -100,14 +118,83 @@ void app_main(void)
             }
             if (gFlags.sys_check_tag){
                 gFlags.sys_check_tag = 0;
-                if (nfc_check_tag(&gNFC)){
-                    printf("Tag detected\n");
+                if (nfc_check_is_valid_tag(&gNFC)){
+                    printf("Valid tag detected\n");
                     door_open(&gDoor);
                 }
+                char str[12]; ///< 2 bytes of tag access + 1 byte of comma + 8 bytes of the tag UID + 1 byte of '\0'
+                if (gNFC.tag.uid_reg_access == 0b00 || gNFC.tag.uid_reg_access == 0b01) {
+                    snprintf(str, 12, "0%d,%08x", gNFC.tag.uid_reg_access, gNFC.tag.uid);
+                }else {
+                    snprintf(str, 12, "%d,%08x", gNFC.tag.uid_reg_access, gNFC.tag.uid);
+                }
+                publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_NFC, str, 2, true);
             }
-            
+            if (gFlags.sys_send_door){
+                gFlags.sys_send_door = 0;
+                publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_DOOR, door_is_open(&gDoor)?"1":"0", 2, true);
+            }
+            if (gFlags.sys_key_pressed){
+                gFlags.sys_key_pressed = 0;
+                kp_capture(&gKeyPad);
+                printf("Key pressed: %d\n", gKeyPad.KEY.dkey);
+                app_process_key();
+            }
+            if (gFlags.sys_send_alarm){
+                gFlags.sys_send_alarm = 0;
+                publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_ALARM, "1", 2, true);
+                gSystemState = INTRUDER;
+                gpio_put(BUZZER_GPIO, 1);
+            }
         }
         __wfi();
+    }
+}
+
+void app_process_key()
+{
+    static uint8_t key_cnt = 0;
+    static uint8_t key_value = 0;
+    static uint8_t cnt_tries = 0;
+    switch (gSystemState)
+    {
+    case INDOOR: ///< Press the key (0x0E) to change to alarm state
+        if (gKeyPad.KEY.dkey == 0x0E){ ///< Turn on the alarm state
+            add_alarm_in_ms(SYS_ALARM_WAIT_MS, alarm_timer_cb, NULL, false);
+            printf("Change to set timer for PIR sensor\n");
+        }
+        break;
+    case ALARM: ///< Enter the password to change to indoor
+        if (checkNumber(gKeyPad.KEY.dkey)){ ///< Check if the key is a number
+            key_value = key_value*10 + gKeyPad.KEY.dkey;
+            key_cnt++;
+            if (key_cnt == 4){ ///< Check if the password is complete
+                if (key_value == SYS_PASS){
+                    cnt_tries = 0;
+                    gPIR.pass_correct = true;
+                    gSystemState = INDOOR;
+                    pir_set_irq_enabled(&gPIR, false);
+                    printf("Change to indoor\n");
+                }
+                else if (++cnt_tries == SYS_MAX_TRIES){
+                    cnt_tries = 0;
+                    gFlags.sys_send_alarm = 1; ///< Activate the flag to send the alarm to the broker
+                    printf("Invalid password\n");
+                }
+                key_cnt = 0;
+                key_value = 0;
+            }
+        }
+        else { ///< The key is not a number
+            cnt_tries++;
+            key_cnt = 0;
+            key_value = 0;
+            printf("Invalid key\n");
+        }
+        break;
+    
+    default:
+        break;
     }
 }
 
@@ -124,12 +211,15 @@ void app_init_mqtt(void)
     while (!init_mqtt(&gMqtt.client, &gMqtt.ci, MQTT_SEVER_IP1)) {
         printf("It could not connect to the server. Trying again...\n");
         gFlags.error_init_mqtt = 1;
+        return;
     }
     printf("MQTT client initialized\n");
     
+    ///< Subscribe to the topics: alarm send by the user
     while (!subscribe_topic(&gMqtt.client, MQTT_TOPIC_SUB_USER_ALARM)) {
         printf("It could not subscribe to the topic\n");
         gFlags.error_sub_mqtt = 1;
+        return;
     }
     printf("Subscribed to the topic\n");
 }
@@ -137,23 +227,66 @@ void app_init_mqtt(void)
 bool check_tag_timer_cb(struct repeating_timer *t)
 {
     // Check for a tag entering
-    if (gpio_get(LOCK_GPIO) && !gNFC.tag.is_present){ ///< Just check the tag if the door is locked
+    if (door_is_open(&gDoor) && !gNFC.tag.is_present){ ///< Just check the tag if the door is locked
         if (nfc_is_new_tag(&gNFC)){
             gFlags.sys_check_tag = 1; ///< Activate the flag of the NFC interruption to read the card
         }
     }
 
     ///< Send the door state to the broker
+    gDoor.cnt_send_door++;
+    if (gDoor.cnt_send_door >= gDoor.time_send_door){
+        gDoor.cnt_send_door = 0;
+        gFlags.sys_send_door = 1; ///< Activate the flag to send the door state to the broker
+    }
 
-    return false;
+    ///< Send the alarm to the broker every second
+    if (gSystemState == INTRUDER && !gFlags.sys_send_alarm) {
+        gFlags.sys_send_alarm = 1; ///< Activate the flag to send the alarm to the broker
+    }
+
+    return true;
+}
+
+int64_t alarm_timer_cb(alarm_id_t id, void *data)
+{
+    switch (gSystemState)
+    {
+    case INDOOR:
+        pir_set_irq_enabled(&gPIR, true);
+        gPIR.pass_correct = false;
+        gSystemState = ALARM;
+        break;
+
+    case ALARM:
+        if (!gPIR.pass_correct){
+            gFlags.sys_send_alarm = 1; ///< Activate the flag to send the alarm to the broker
+        }
+        break;
+    
+    default:
+        break;
+    }
+    return 0;
 }
 
 void gpio_cb(uint gpio, uint32_t events)
 {
     switch (gSystemState)
     {
-    case INDOOR:
-        if (!gKeyPad.KEY.dbnc) {
+    case INDOOR: ///< The user press the key (0x0E) to change to alarm state
+        if (!gKeyPad.KEY.dbnc && gpio != gPIR.gpio) {
+            kp_set_irq_enabled(&gKeyPad, true, false); ///< Disable the columns interrupt
+            gKeyPad.KEY.dbnc = 1; ///< Activate the debouncer
+            gFlags.sys_keypad_switch = 1; ///< Activate the flag to switch the interrupt to columns
+        }
+        break;
+    case ALARM: ///< The system is in alarm state and a gpio interruption is detected: pir or keypad
+        if (gpio == gPIR.gpio){
+            pir_set_irq_enabled(&gPIR, false); ///< Just one interruption is allowed
+            add_alarm_in_ms(SYS_ALARM_WAIT_MS, alarm_timer_cb, NULL, false);
+        }
+        else if (!gKeyPad.KEY.dbnc){
             kp_set_irq_enabled(&gKeyPad, true, false); ///< Disable the columns interrupt
             gKeyPad.KEY.dbnc = 1; ///< Activate the debouncer
             gFlags.sys_keypad_switch = 1; ///< Activate the flag to switch the interrupt to columns

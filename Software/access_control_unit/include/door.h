@@ -24,8 +24,10 @@
  * \brief Data strcuture to manage a door
  */
 typedef struct{
-    uint8_t gpio_in_relay;   ///< GPIO connected to the relay that opens the door
-    uint8_t gpio_lock;   ///<  Indicates that the door was opened
+    uint8_t gpio_in_relay;  ///< GPIO connected to the relay that opens the door
+    uint8_t gpio_lock;      ///<  Indicates that the door was opened
+    uint8_t cnt_send_door;  ///< Counter to send the door state to the broker
+    uint8_t time_send_door; ///< Time to send the door state to the broker. Asumes an alarm that triggers every second
 }door_t; ///< All door related information
 
 
@@ -35,8 +37,9 @@ typedef struct{
  * @param door pointer to door data structure
  * @param gpio_in_relay GPIO connected to the door
  * @param gpio_lock GPIO connected to the relay that opens the door
+ * @param time_send_door (seg) Time to send the door state to the broker 
  */
-void door_init(door_t *door, uint8_t gpio_in_relay, uint8_t gpio_lock);
+void door_init(door_t *door, uint8_t gpio_in_relay, uint8_t gpio_lock, uint8_t time_send_door);
 
 /**
  * @brief This method opens the door
@@ -48,11 +51,15 @@ void door_open(door_t *door);
 /**
  * @brief This method closes the door
  * 
- * @param door pointer to door data structure
+ * @param id 
+ * @param door 
+ * @return int64_t 
  */
-static inline void door_close(door_t *door)
+static inline int64_t door_close_cb(alarm_id_t id, void *door)
 {
-    gpio_put(door->gpio_in_relay, 0);
+    door_t *d = (door_t *)door;
+    gpio_put(d->gpio_in_relay, 0);
+    return true;
 }
 
 /**

@@ -16,7 +16,7 @@ void pir_init(pir_t *pir, uint8_t gpio, bool en)
 {
     pir->gpio = gpio;
     pir->en = en;
-    pir->pir = 0;
+    pir->pass_correct = false;
     gpio_init_mask(1 << pir->gpio);
     gpio_set_dir(pir->gpio, GPIO_IN);
     gpio_pull_down(pir->gpio);

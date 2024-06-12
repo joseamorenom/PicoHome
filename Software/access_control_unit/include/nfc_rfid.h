@@ -14,7 +14,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "pico/stdlib.h"
 #include "pico/time.h"
+#include "pico/flash.h"
+#include "hardware/flash.h"
+#include "hardware/exception.h"
+#include "hardware/sync.h"
 #include "hardware/spi.h"
 #include "hardware/irq.h"
 #include "hardware/gpio.h"
@@ -26,6 +31,7 @@
 #define READ_BIT 0x80 ///< Bit used in I2C to read a register
 #define BUFFER_SIZE  1 ///< Buffer size for the SPI communication
 #define SIZE_UID_DATA_BASE 5 ///< Size of the UID data base
+#define FLASH_TARGET_OFFSET (PICO_FLASH_SIZE_BYTES - FLASH_SECTOR_SIZE) ///< Flash-based address of the last sector
 
 /**
  * \typedef nfc_rfic_t
@@ -413,7 +419,31 @@ bool nfc_get_data_tag(nfc_rfid_t *nfc);
  * 
  * @param nfc 
  */
-bool nfc_check_tag(nfc_rfid_t *nfc);
+bool nfc_check_is_valid_tag(nfc_rfid_t *nfc);
+
+/**
+ * @brief Store the last UID in non-volatile memory (flash).
+ * 
+ * @param nfc 
+ */
+void nfc_store_last_uid(nfc_rfid_t *nfc);
+
+/**
+ * @brief Load the last UID from non-volatile memory (flash).
+ * 
+ * @param nfc 
+ */
+void nfc_load_last_uid(nfc_rfid_t *nfc);
+
+/**
+ * @brief Definition of the wrapper function for the flash_safe_execute function,
+ * which is used to erase the last sector of the flash memory.
+ * 
+ */
+static inline void nfc_flash_wrapper()
+{
+    flash_range_erase((PICO_FLASH_SIZE_BYTES - FLASH_SECTOR_SIZE), FLASH_SECTOR_SIZE);
+}
 
 
 

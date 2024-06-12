@@ -6,6 +6,7 @@ target_include_directories(app_access PUBLIC ../include/)
 target_link_libraries(app_access
     pico_stdlib
     pico_time
+    pico_flash
     hardware_pwm
     hardware_sync
     mqtt_client_lib
@@ -36,6 +37,10 @@ target_include_directories(nfc_lib PUBLIC ../include/)
 target_link_libraries(nfc_lib
     pico_stdlib
     pico_time
+    pico_flash
+    hardware_flash
+    hardware_exception
+    hardware_sync
     hardware_gpio
     hardware_spi
     hardware_irq

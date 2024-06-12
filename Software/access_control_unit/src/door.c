@@ -12,8 +12,9 @@
 
 #include "door.h"
 
-void door_init(door_t *door, uint8_t gpio_in_relay, uint8_t gpio_lock)
+void door_init(door_t *door, uint8_t gpio_in_relay, uint8_t gpio_lock, uint8_t time_send_door)
 {
+    door->time_send_door = time_send_door;
     door->gpio_in_relay = gpio_in_relay;
     door->gpio_lock = gpio_lock;
     gpio_init(door->gpio_in_relay);
@@ -30,6 +31,6 @@ void door_open(door_t *door)
         return;
     }
     gpio_put(door->gpio_in_relay, 1);
-    add_alarm_in_ms(DOOR_OPEN_TIME_MS, door_close, NULL, false);
+    add_alarm_in_ms(DOOR_OPEN_TIME_MS, door_close_cb, door, false);
 }
 

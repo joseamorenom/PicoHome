@@ -69,6 +69,7 @@ typedef struct _tag
     uint32_t purchase_v;
     uint32_t sale_v;
     uint32_t uid;
+    uint8_t uid_reg_access; ///< 11: Registered, Access conceded; 00: Not registered, Access denied
     bool is_present; ///< Flag that indicates that a tag is being entered
 }tag_t;
 

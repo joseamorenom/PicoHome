@@ -80,6 +80,10 @@ static void mqtt_incoming_publish_cb(void *arg, const char *topic, uint32_t tot_
         printf("Received data from BLINDS subscription\n");
         inpub_id = 1; ///< Set the id of the incoming data
     }
+    else if (strcmp(topic, MQTT_TOPIC_SUB_USER_ALARM) == 0){
+        printf("Received data from ALARM subscription\n");
+        inpub_id = 3; ///< Set the id of the incoming data
+    }
     else {
         printf("ERROR: topic not found\n");
     }
@@ -107,6 +111,17 @@ static void mqtt_incoming_data_cb(void *arg, const uint8_t *data, uint16_t len, 
                 memcpy((void *)gMqtt.data.blinds, data, len);
                 gFlags.broker_blinds = 1;
                 printf("BLINDS: %s\n", gMqtt.data.blinds);
+            }
+            else {
+                printf("ERROR: data too long\n");
+            }
+            break;
+
+        case 3:
+            if (len <= sizeof(gMqtt.data.alarm) - 1) { ///< Check if the data is not too long - Validation
+                memcpy((void *)gMqtt.data.alarm, data, len);
+                gFlags.broker_alarm = 1;
+                printf("ALARM: %s\n", gMqtt.data.alarm);
             }
             else {
                 printf("ERROR: data too long\n");

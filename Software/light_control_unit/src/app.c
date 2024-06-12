@@ -96,12 +96,14 @@ void app_init_mqtt(void)
     while (!init_mqtt(&gMqtt.client, &gMqtt.ci, MQTT_SEVER_IP1)) {
         printf("It could not connect to the server. Trying again...\n");
         gFlags.error_init_mqtt = 1;
+        return;
     }
     printf("MQTT client initialized\n");
     
     while (!subscribe_topic(&gMqtt.client, MQTT_TOPIC_SUB_USER_BRIGHTNESS)) {
         printf("It could not subscribe to the topic\n");
         gFlags.error_sub_mqtt = 1;
+        return;
     }
     printf("Subscribed to the topic\n");
 }

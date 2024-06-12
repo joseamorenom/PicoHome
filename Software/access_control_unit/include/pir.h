@@ -24,7 +24,7 @@
 typedef struct{
     uint8_t gpio;   ///< GPIO connected to the PIR sensor
     uint8_t en;     ///< Enable PIR processing
-    uint8_t pir ;   ///< Flag that indicates that a movement was detected
+    bool pass_correct;   ///< Flag that indicates that a movement was detected
 }pir_t;                       ///< All PIR related information
 
 /**

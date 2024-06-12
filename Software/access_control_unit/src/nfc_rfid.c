@@ -8,7 +8,6 @@
  * \copyright   Unlicensed
  */
 
-
 #include "nfc_rfid.h"
 
 void nfc_init_as_spi(nfc_rfid_t *nfc, spi_inst_t *_spi, uint8_t sck, uint8_t mosi, uint8_t miso, uint8_t cs, uint8_t irq, uint8_t rst)
@@ -91,6 +90,7 @@ void nfc_init_as_spi(nfc_rfid_t *nfc, spi_inst_t *_spi, uint8_t sck, uint8_t mos
 	for (uint8_t i = 0; i < SIZE_UID_DATA_BASE; i++) {
 		nfc->uid_data_base[i] = 0x1B541C5F + i;
 	}
+	nfc_load_last_uid(nfc);
 
 }
 
@@ -565,7 +565,7 @@ bool nfc_get_data_tag(nfc_rfid_t *nfc)
 	return true;
 } // End of nfc_get_data_tag
 
-bool nfc_check_tag(nfc_rfid_t *nfc)
+bool nfc_check_is_valid_tag(nfc_rfid_t *nfc)
 {
 	nfc_read_card_serial(nfc); ///< Read the serial number of the card
 	// Print the serial number of the card
@@ -578,14 +578,47 @@ bool nfc_check_tag(nfc_rfid_t *nfc)
 	printf("\n");
 
 	// Check if the card is in the data base
+	nfc->tag.uid = uid;
 	for (uint8_t i = 0; i < SIZE_UID_DATA_BASE; i++) {
 		if (uid == nfc->uid_data_base[i]) {
 			nfc->tag.is_present = true;
-			nfc->tag.uid = uid;
+			nfc->tag.uid_reg_access = 0b11;
+			nfc_store_last_uid(nfc); ///< Store the last UID in the flash
 			return true;
 		}
 	}
 
 	nfc->tag.is_present = false;
+	nfc->tag.uid_reg_access = 0b00;
+	nfc_store_last_uid(nfc); ///< Store the last UID in the flash
 	return false;
+}
+
+void nfc_store_last_uid(nfc_rfid_t *nfc)
+{
+	// An array of 256 bytes, multiple of FLASH_PAGE_SIZE. Database is 60 bytes.
+    uint32_t buf[FLASH_PAGE_SIZE/sizeof(uint32_t)];
+
+    // Copy the database into the buffer
+    buf[0] = nfc->tag.uid;
+	buf[1] = (uint32_t)nfc->tag.uid_reg_access;
+
+    // Program buf[] into the first page of this sector
+    // Each page is 256 bytes, and each sector is 4K bytes
+    // Erase the last sector of the flash
+    flash_safe_execute(nfc_flash_wrapper, NULL, 500);
+
+    uint32_t ints = save_and_disable_interrupts();
+    flash_range_program(FLASH_TARGET_OFFSET, (uint8_t *)buf, FLASH_PAGE_SIZE);
+    restore_interrupts (ints);
+}
+
+void nfc_load_last_uid(nfc_rfid_t *nfc)
+{
+	// Compute the memory-mapped address, remembering to include the offset for RAM
+    uint32_t addr = XIP_BASE + FLASH_TARGET_OFFSET;
+    uint32_t *ptr = (uint32_t *)addr; ///< Place an int pointer at our memory-mapped address
+
+    nfc->tag.uid = ptr[0];
+	nfc->tag.uid_reg_access = (uint8_t)ptr[1];
 }

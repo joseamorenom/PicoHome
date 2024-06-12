@@ -17,6 +17,7 @@
 #include <string.h>
 #include "pico/stdlib.h"
 #include "pico/time.h"
+#include "pico/flash.h"
 #include "hardware/sync.h"
 #include "hardware/pwm.h"
 
@@ -58,6 +59,14 @@ void app_init_mqtt(void);
  */
 void pwm_set_as_pit(uint8_t slice, uint16_t milis, bool enable);
 
+/**
+ * @brief Process the key pressed by the user, tanking into account the current state of the system.
+ * 
+ * @param slice 
+ * @param pin 
+ */
+void app_process_key();
+
 // ------------------------------------------------------------------------
 // -------------------- CALLBACK AND HANDLER FUNCTIONS --------------------
 // ------------------------------------------------------------------------
@@ -68,6 +77,17 @@ void pwm_set_as_pit(uint8_t slice, uint16_t milis, bool enable);
  * @param t 
  */
 bool check_tag_timer_cb(struct repeating_timer *t);
+
+/**
+ * @brief Callback function to process the alarm mode.
+ * It is used when the user turn on the alarm mode (press * key).
+ * Also it is used when someone is detected by the PIR sensor.
+ * 
+ * @param id 
+ * @param data 
+ * @return int64_t 
+ */
+int64_t alarm_timer_cb(alarm_id_t id, void *data);
 
 /**
  * @brief This function is the callback function for the GPIO interruptions.

@@ -13,6 +13,7 @@
         "sync.h": "c",
         "keypad_irq.h": "c",
         "timer.h": "c",
-        "pir.h": "c"
+        "pir.h": "c",
+        "flash.h": "c"
     }
 }
