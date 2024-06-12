@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<div class="web-header">
+    <img id="title-img" src="logo_light-removebg-preview.png">
+    <button id="get-button">Retreive data from server</button>    
+</div>
+</head>
+<body>
+
+    <div class="data-container">
+        <div class="slide-container">
+            <h2>Light Dimmer</h2>
+            <input type="range" min="0" max="100" value="50" class="slider" id="myRange">
+            <p>Value: <span id="sent-light"></span>%</p>
+
+            <button id="lights-on">TURN ON</button>
+
+            <button id="lights-off" class="off">TURN OFF</button>
+            
+            <h3>Actual light intensity</h3>
+            <div class="light-intensity">
+                <p>Value: <span id="rec-light"></span>%</p>
+            </div>
+        </div>
+
+        <div class="security-container">
+            <div class="rfid-database-container">
+                <h2>Home Access Control</h2>
+                
+                <div class="users-table">
+                    <table id="sctabinfo">
+                        <tr>
+                            <th>ID</th>
+                            <th>Time</th>
+                            <th>Reg. ID</th>
+                            <th>Access Conceded</th>
+                        </tr>
+                        <tr>
+                            <td>e5:d4:f0:9b</td>
+                            <td>10:00</td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                        </tr>
+                    </table>
+                </div>
+    
+                <div class="intruder-alarm"></div>
+            </div>
+
+            <div class="door">
+                <h2>Door Status: <span id="door-status">closed</span></h2>
+                <div class="open-door"></div>
+            </div>
+        
+            
+        </div>
+        <div class="curtains-container">
+            <h2>Curtains</h2>
+            <button>OPEN</button>
+            <button class="off">CLOSE</button>
+        </div>
+            
+        </div>
+<script src="logic.js">
+</script>
+
+</body>
+</html>
