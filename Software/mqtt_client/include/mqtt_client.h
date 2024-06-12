@@ -11,29 +11,35 @@
 
 #define MQTT_CHANNEL_ID "2571668"
 
-///< MQTT channel publish and subscribe topics
+///< -----------  MQTT TOPICS -------------- <///
 
-#define MQTT_TOPIC_SUB_BRIGHTNESS "channels/2571668/subscribe/fields/field1"
-#define MQTT_TOPIC_PUB_BRIGHTNESS "channels/2571668/publish/fields/field1"
+///< MQTT topics for the light control unit
+#define MQTT_TOPIC_SUB_USER_BRIGHTNESS "channels/2571668/subscribe/fields/field1"
+#define MQTT_TOPIC_PUB_BRIGHTNESS "channels/2571668/publish/fields/field2"
 
-#define MQTT_TOPIC_SUB_NFC "channels/2571668/subscribe/fields/field2"
-#define MQTT_TOPIC_PUB_NFC "channels/2571668/publish/fields/field2"
+///< MQTT topics for the blinds control unit
+#define MQTT_TOPIC_SUB_USER_BLINDS "channels/2571668/subscribe/fields/field3"
+#define MQTT_TOPIC_PUB_BLINDS "channels/2571668/publish/fields/field4"
 
-#define MQTT_TOPIC_SUB_BLINDS "channels/2571668/subscribe/fields/field3"
-#define MQTT_TOPIC_PUB_BLINDS "channels/2571668/publish/fields/field3"
+///< MQTT topics for the access control unit
+#define MQTT_TOPIC_PUB_NFC "channels/2571668/publish/fields/field5"
+#define MQTT_TOPIC_PUB_DOOR "channels/2571668/publish/fields/field6"
+
+#define MQTT_TOPIC_SUB_USER_ALARM "channels/2571668/subscribe/fields/field7"
+#define MQTT_TOPIC_PUB_ALARM "channels/2571668/publish/fields/field8"
 
 ///< MQTT credentials of each device
 #define MQTT_CLIENT_ID_LIGHT_CONTROL_UNIT "LwU7EwAXNRkxKxQZISAJPBw"
 #define MQTT_CLIENT_USER_LIGHT_CONTROL_UNIT "LwU7EwAXNRkxKxQZISAJPBw"
 #define MQTT_CLIENT_PASS_LIGHT_CONTROL_UNIT "Ztf0mwq4qtQ1HRXHxsJ5YWAZ"
 
-#define MQTT_CLIENT_ID_ACCESS_CONTROL_UNIT "LwU7EwAXNRkxKxQZISAJPBw"
-#define MQTT_CLIENT_USER_ACCESS_CONTROL_UNIT "LwU7EwAXNRkxKxQZISAJPBw"
-#define MQTT_CLIENT_PASS_ACCESS_CONTROL_UNIT "Ztf0mwq4qtQ1HRXHxsJ5YWAZ"
+#define MQTT_CLIENT_ID_ACCESS_CONTROL_UNIT "LzUCHiMJKyYFGyUJGDUoIBo"
+#define MQTT_CLIENT_USER_ACCESS_CONTROL_UNIT "LzUCHiMJKyYFGyUJGDUoIBo"
+#define MQTT_CLIENT_PASS_ACCESS_CONTROL_UNIT "kwN2PS0mAbYc2VpLAKb+Kvm9"
 
-#define MQTT_CLIENT_ID_BLINDS_CONTROL_UNIT "LwU7EwAXNRkxKxQZISAJPBw"
-#define MQTT_CLIENT_USER_BLINDS_CONTROL_UNIT "LwU7EwAXNRkxKxQZISAJPBw"
-#define MQTT_CLIENT_PASS_BLINDS_CONTROL_UNIT "Ztf0mwq4qtQ1HRXHxsJ5YWAZ"
+#define MQTT_CLIENT_ID_BLINDS_CONTROL_UNIT "EREPLR8CBhAyPAMXNAkPCSM"
+#define MQTT_CLIENT_USER_BLINDS_CONTROL_UNIT "EREPLR8CBhAyPAMXNAkPCSM"
+#define MQTT_CLIENT_PASS_BLINDS_CONTROL_UNIT "qtNbwuMdFhveYHUCyZ0nGipY"
 
 #define MQTT_SEVER_IP1 "18.207.44.162"
 #define MQTT_SEVER_IP2 "54.81.146.55"

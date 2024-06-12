@@ -28,10 +28,16 @@ typedef union {
         /// @brief Flags to control broker events
         uint8_t broker_brightness   : 1; ///< Flag that indicates that light data was received from the broker
         uint8_t broker_blinds       : 1; ///< Flag that indicates that blinds data was received from the broker
+        uint8_t broker_alarm        : 1; ///< Flag that indicates that alarm data was received from the broker
 
         /// @brief Flags to control the system events
         uint8_t sys_send_brightness  : 1; ///< Flag to send light data to the broker
         uint8_t sys_send_blinds      : 1; ///< Flag to send blinds data to the broker
+        uint8_t sys_send_door        : 1; ///< Flag to send the door state to the broker
+        uint8_t sys_send_alarm       : 1; ///< Flag to send the alarm to the broker
+        uint8_t sys_check_tag        : 1; ///< Flag to check the presence of a tag
+        uint8_t sys_keypad_switch    : 1; ///< Flag to switch the keypad irq from cols to rows
+        uint8_t sys_key_pressed      : 1; ///< Flag to process the key pressed
     
         /// @brief Flags to control the errors
         uint8_t error_init_mqtt     : 1; ///< Mqtt client initilization has an error
@@ -53,6 +59,7 @@ typedef struct {
     struct {
         char brightness[4]; ///< Light data
         char blinds[4];     ///< Blinds data
+        char alarm[4];      ///< Alarm data
     }data;
 }mqtt_t;
 

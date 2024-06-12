@@ -21,8 +21,7 @@
 #include "pico/time.h"
 
 #include "mqtt_client.h"
-#include "sen_ky018.h"
-#include "lightbulb.h"
+///< ADD HERE THE INCLUDES OF THE MODULES <///
 
 
 /**
@@ -50,6 +49,6 @@ void app_init_mqtt(void);
  * 
  * @param t 
  */
-bool send_brightness_timer_cb(struct repeating_timer *t);
+bool send_blinds_timer_cb(struct repeating_timer *t);
 
 #endif // __APP_H__
