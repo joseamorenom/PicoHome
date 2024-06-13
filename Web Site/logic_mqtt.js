@@ -10,7 +10,7 @@ const MQTT_TOPIC_PUB_LIGHT = "channels/2571668/publish/fields/field1";
 const MQTT_TOPIC_SUB_LIGHT = "channels/2571668/subscribe/fields/field2";
 const MQTT_TOPIC_PUB_BLIND = "channels/2571668/publish/fields/field3";
 const MQTT_TOPIC_SUB_BLIND = "channels/2571668/subscribe/fields/field4";
-const MQTT_TOPIC_SUB_NFC = "channels/2571668/publish/fields/field5";
+const MQTT_TOPIC_SUB_NFC = "channels/2571668/subscribe/fields/field5";
 const MQTT_TOPIC_SUB_DOOR = "channels/2571668/subscribe/fields/field6";
 const MQTT_TOPIC_PUB_ALARM = "channels/2571668/publish/fields/field7";
 const MQTT_TOPIC_SUB_ALARM = "channels/2571668/subscribe/fields/field8";
@@ -21,7 +21,7 @@ function onConnect() {
 
   mqtt.subscribe("channels/2571668/subscribe/fields/field2");
   mqtt.subscribe("channels/2571668/subscribe/fields/field4");
-  mqtt.subscribe("channels/2571668/publish/fields/field5");
+  mqtt.subscribe("channels/2571668/subscribe/fields/field5");
   mqtt.subscribe("channels/2571668/subscribe/fields/field6");
   mqtt.subscribe("channels/2571668/subscribe/fields/field8");
 }
@@ -32,18 +32,19 @@ function onFailure(message) {
 }
 
 function onMessageArrived(msg){
+  var field = msg.destinationName.split("/")[4];
   console.log("Message received at topic "+msg.destinationName);
-  if(msg.destinationName.split("/")[4] == "field2"){
+  if(field == "field2"){
     console.log("Light sensor information received");
     var light = document.getElementById("rec-light");
     light.innerHTML = msg.payloadString;
     console.log("New light sensor info: "+msg.payloadString);
-  } else if(msg.destinationName.split("/")[4] == "field4"){
+  } else if(field == "field4"){
     console.log("Blind sensor information received");
     var indicator = document.getElementById("blinds-open");
     if(msg.payloadString == "1")       indicator.style.backgroundColor = "green";
     else if (msg.payloadString == "0") indicator.style.backgroundColor = "red";
-  } else if(msg.destinationName.split("/")[4] == "field5"){
+  } else if(field == "field5"){
     console.log("NFC information received");
     var user = document.getElementById("usr-uid");
     var access = document.getElementById("usr-accss-cncd");
@@ -69,7 +70,7 @@ function onMessageArrived(msg){
     var hourMod = parseInt(aux[1].split("Z")[0].split(":")[0]) - 5;
     hour.innerHTML = hourMod + ":" + aux[1].split("Z")[0].split(":")[1] + ":" + aux[1].split("Z")[0].split(":")[2];
     console.log("New UID entered: "+uid);
-  } else if(msg.destinationName.split("/")[4] == "field6"){
+  } else if(field == "field6"){
     console.log("Door sensor information received");
     var doorSt = document.getElementById("door-status");
     var indicator = document.getElementById("door-open");
@@ -80,7 +81,7 @@ function onMessageArrived(msg){
       indicator.style.backgroundColor = "red";
       doorSt.innerHTML = "closed";
     }
-  } else if(msg.destinationName.split("/")[4] == "field8"){
+  } else if(field == "field8"){
     console.log("Alarm sensor information received");
     var button = document.getElementById("deact-alarm");
     if(msg.payloadString == "1")       button.disabled = false;
