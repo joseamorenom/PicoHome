@@ -3,6 +3,9 @@ cmake_minimum_required(VERSION 3.15)
 # initialize the SDK based on PICO_SDK_PATH
 # note: this must happen before project()
 include(pico_sdk_import.cmake)
+# We also need PICO EXTRAS
+include(pico_extras_import.cmake)
+
 
 project(Blinds_Control_Unit)
 set(PICO_BOARD pico_w)

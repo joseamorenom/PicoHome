@@ -11,6 +11,7 @@ target_link_libraries(app_blinds
     mqtt_client_lib
     # ADD HERE NEWS LIBRARIES #
     motor_lib
+    blind_lib
     )
 
 ##### -------- ADD HERE NEW LIBRARIES ------- #####
@@ -28,13 +29,17 @@ target_link_libraries(motor_lib
     hardware_irq
     )
 
-# # Lightbulb library
-# add_library(lightbulb_lib STATIC lightbulb.c)
+add_library(blind_lib STATIC blind.c)
 
-# target_include_directories(lightbulb_lib PUBLIC ../include/)
+target_include_directories(blind_lib PUBLIC ../include/)
 
-# target_link_libraries(lightbulb_lib
-#     pico_stdlib
-#     hardware_pwm
-#     )
+target_link_libraries(blind_lib
+    pico_stdlib
+    hardware_gpio
+    motor_lib
+    pico_flash
+    hardware_flash
+    hardware_sync
+    hardware_irq
+    )
 

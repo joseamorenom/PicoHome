@@ -13,7 +13,7 @@ void stepper_motor_init(stepper_motor_t * motor, double step_angle, uint8_t step
     motor->step = 0;
     motor->gpio_lsb = gpio_lsb;
     motor->step_mode = step_mode;
-    motor->timer_irq = TIMER_IRQ_0;
+    motor->timer_irq = TIMER_IRQ_1;
 
     //Asign the step mode to the stepper motor of the MACROS
     switch (step_mode)
@@ -35,7 +35,7 @@ void stepper_motor_init(stepper_motor_t * motor, double step_angle, uint8_t step
     gpio_put_masked(0x0F << gpio_lsb, 0x00 << gpio_lsb);
 }
 
-void stepper_motor_move(stepper_motor_t *motor, uint32_t steps)
+void stepper_motor_move(stepper_motor_t *motor, int32_t steps)
 {
     motor->step_dir = steps > 0 ? 1 : 0;
     motor->step = 0;
@@ -44,7 +44,7 @@ void stepper_motor_move(stepper_motor_t *motor, uint32_t steps)
     stepper_motor_set_alarm(motor);
 }
 
-void stepper_motor_loop(stepper_motor_t *motor, uint8_t loops)
+void stepper_motor_loop(stepper_motor_t *motor, int16_t loops)
 {
     if (motor->step_mode == 4)
     {
@@ -70,37 +70,37 @@ void stepper_motor_set_alarm(stepper_motor_t *motor)
 
 void stepper_motor_timer_handler(void)
 {
-    hw_clear_bits(&timer_hw->intr, 1u << motor.timer_irq);
+    hw_clear_bits(&timer_hw->intr, 1u << gMotor.timer_irq);
 
-    if (motor.step < motor.step_target)
+    if (gMotor.step < gMotor.step_target)
     {
-        switch (motor.step_dir)
+        switch (gMotor.step_dir)
         {
             case 0:
                 //change the direction of the motor
-                gpio_put_masked(0x0F << motor.gpio_lsb, motor.steps[(motor.step_mode - 1) - (motor.step % motor.step_mode)] << motor.gpio_lsb);
+                gpio_put_masked(0x0F << gMotor.gpio_lsb, gMotor.steps[(gMotor.step_mode - 1) - (gMotor.step % gMotor.step_mode)] << gMotor.gpio_lsb);
                 break;
             case 1:
-                gpio_put_masked(0x0F << motor.gpio_lsb, motor.steps[motor.step % motor.step_mode] << motor.gpio_lsb);
+                gpio_put_masked(0x0F << gMotor.gpio_lsb, gMotor.steps[gMotor.step % gMotor.step_mode] << gMotor.gpio_lsb);
                 break;
             default:
                 break;
         }
-        motor.step++;
+        gMotor.step++;
         // Setting the IRQ handler
-        irq_set_exclusive_handler(motor.timer_irq, stepper_motor_timer_handler);
-        irq_set_enabled(motor.timer_irq, true);
-        hw_set_bits(&timer_hw->inte, 1u << motor.timer_irq); ///< Enable alarm0 interrupt
-        timer_hw->alarm[motor.timer_irq] = (uint32_t)(time_us_64() + MOTOR_SPEED_US); ///< Set alarm to 500us
+        irq_set_exclusive_handler(gMotor.timer_irq, stepper_motor_timer_handler);
+        irq_set_enabled(gMotor.timer_irq, true);
+        hw_set_bits(&timer_hw->inte, 1u << gMotor.timer_irq); ///< Enable alarm0 interrupt
+        timer_hw->alarm[gMotor.timer_irq] = (uint32_t)(time_us_64() + MOTOR_SPEED_US); ///< Set alarm to 500us
     }
     else
     {
         // Stop the motor
-        gpio_put_masked(0x0F << motor.gpio_lsb, 0x00 << motor.gpio_lsb);
-        motor.step = 0;
-        motor.step_target = 0;
+        gpio_put_masked(0x0F << gMotor.gpio_lsb, 0x00 << gMotor.gpio_lsb);
+        gMotor.step = 0;
+        gMotor.step_target = 0;
     }
-    printf("Step %d\n", motor.step % motor.step_mode);
-    printf("Bits %02X\n", motor.steps[motor.step % motor.step_mode]);
+    //printf("Step %d\n", motor.step % motor.step_mode);
+    //printf("Bits %02X\n", motor.steps[motor.step % motor.step_mode]);
 
 }
