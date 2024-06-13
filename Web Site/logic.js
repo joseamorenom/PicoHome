@@ -1,13 +1,14 @@
 const updateData = () => {
   console.log("Update data...");
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", 'https://api.thingspeak.com/channels/2553412/feeds.json?api_key=TLF9XT501C4E6B4C', true);
+  xhr.open("GET", 'https://api.thingspeak.com/channels/2571668/feeds.json?', true);
   xhr.send();
   var lslChecked = false;
   var lseChecked = false;
   var uidChecked = false;
   var dooChecked = false;
   var bliChecked = false;
+  var almChecked = false;
   xhr.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var feed = JSON.parse(xhr.responseText).channel.last_entry_id;
@@ -15,12 +16,13 @@ const updateData = () => {
       else         var rest = 0;
       console.log("Num. Feeds: ", feed);
       for(var i = feed-rest-1; i >= 0; i--) {
-        var lightSlider = JSON.parse(xhr.responseText).feeds[i].field2;
+        var lightSlider = JSON.parse(xhr.responseText).feeds[i].field1;
         var lightSensor = JSON.parse(xhr.responseText).feeds[i].field2;
-        var uid = JSON.parse(xhr.responseText).feeds[i].field1;
+        var uid = JSON.parse(xhr.responseText).feeds[i].field5;
         var time = JSON.parse(xhr.responseText).feeds[i].created_at;
-        var door = JSON.parse(xhr.responseText).feeds[i].field1;
-        var blind = JSON.parse(xhr.responseText).feeds[i].field1;
+        var door = JSON.parse(xhr.responseText).feeds[i].field6;
+        var blind = JSON.parse(xhr.responseText).feeds[i].field4;
+        var alarm = JSON.parse(xhr.responseText).feeds[i].field8;
         if (lightSlider != null && !lslChecked) {
           var slider = document.getElementById("myRange");
           var output = document.getElementById("sent-light");
@@ -77,8 +79,14 @@ const updateData = () => {
           else if (blind == "0") indicator.style.backgroundColor = "red";
           bliChecked = true;
         }
+        if (alarm != null && !almChecked) {
+          var button = document.getElementById("deact-alarm");
+          if(alarm == "1")       button.disabled = false;
+          else                   button.disabled = true;
+          almChecked = true;
+        }
 
-        if (lslChecked && lseChecked && uidChecked && dooChecked && bliChecked) {
+        if (lslChecked && lseChecked && uidChecked && dooChecked && bliChecked && almChecked) {
           break;
         }
       }
@@ -90,23 +98,35 @@ const updateData = () => {
 
 const postData = (field, value) => {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", 'https://api.thingspeak.com/update?api_key=BDW9UM21H3OTQ4QN&'+field+'='+value, false);
+  xhr.open("GET", 'https://api.thingspeak.com/update?api_key=I00H45MBL35AXYKW&'+field+'='+value, false);
   xhr.send();
   updateData();
 };
 
 updateData();
 
+// Button for updating data
 document.getElementById("get-button").addEventListener("click", updateData);
 
-document.getElementById("lights-on").addEventListener("click", () => postData("field2", "100"));
+// Buttons for lights control
+document.getElementById("lights-on").addEventListener("click", () => postData("field1", "100"));
 
-document.getElementById("lights-off").addEventListener("click", () => postData("field2", "0"));
+document.getElementById("lights-off").addEventListener("click", () => postData("field1", "0"));
 
 var slider = document.getElementById("myRange");
 var output = document.getElementById("sent-light");
 
 slider.onchange = function() {
   output.innerHTML = this.value;
-  postData("field2", this.value);
-}
+  postData("field1", this.value);
+};
+
+// Buttons for blinds
+document.getElementById("open-blinds").addEventListener("click", () => postData("field3", "1"));
+
+document.getElementById("close-blinds").addEventListener("click", () => postData("field3", "0"));
+
+// Button for deactivating alarm
+document.getElementById("deact-alarm").addEventListener("click", () => {
+  postData("field7", "1")
+});
