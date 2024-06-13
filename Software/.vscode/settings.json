@@ -1,5 +1,10 @@
 {
+    "cmake.generator": "Unix Makefiles",
+    "cmake.buildBeforeRun": true,
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "files.associations": {
+        "*.vhd": "shellscript",
+        "*.c": "c",
         "mqtt_client.h": "c",
         "cyw43_arch.h": "c",
         "app.h": "c",
@@ -14,6 +19,7 @@
         "keypad_irq.h": "c",
         "timer.h": "c",
         "pir.h": "c",
-        "flash.h": "c"
+        "flash.h": "c",
+        "stepper_motor.h": "c"
     }
 }
