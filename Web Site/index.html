@@ -37,33 +37,34 @@
                     <table id="sctabinfo">
                         <tr>
                             <th>ID</th>
+                            <th>Date</th>
                             <th>Time</th>
-                            <th>Reg. ID</th>
                             <th>Access Conceded</th>
                         </tr>
                         <tr>
-                            <td>e5:d4:f0:9b</td>
-                            <td>10:00</td>
-                            <td>Yes</td>
-                            <td>Yes</td>
+                            <td><span id="usr-uid"></span></td>
+                            <td><span id="usr-date"></span></td>
+                            <td id="usr-time"></td>
+                            <td><span id="usr-accss-cncd"></span></td>
                         </tr>
                     </table>
                 </div>
     
-                <div class="intruder-alarm"></div>
+                <div class="indicator" id="intruder-alarm"></div>
             </div>
 
             <div class="door">
-                <h2>Door Status: <span id="door-status">closed</span></h2>
-                <div class="open-door"></div>
+                <h2>Door Status: <span id="door-status"></span></h2>
+                <div class="indicator" id="door-open"></div>
             </div>
         
             
         </div>
-        <div class="curtains-container">
-            <h2>Curtains</h2>
+        <div class="blinds-container">
+            <h2>Blinds</h2>
             <button>OPEN</button>
             <button class="off">CLOSE</button>
+            <div class="indicator" id="blinds-open"></div>
         </div>
             
         </div>

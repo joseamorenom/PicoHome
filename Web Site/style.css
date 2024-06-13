@@ -116,6 +116,7 @@ cursor: pointer;
     padding-right: 14%;
     padding-bottom: 5%;
     margin-bottom: 10%;
+    width: 72%;
     background-color: #222222;
     /* Corner radius */
     border-radius: 30px;
@@ -133,21 +134,27 @@ cursor: pointer;
     text-align: center;
 }
 
-.open-door {
+.indicator{
     position: relative;
     top: 10%;
     left: 50%;
     transform: translate(-50%, -10%);
     margin-top: 5%;
-    width: 50px;
-    height: 50px;
     background-color: rgb(0, 212, 0);
     /* Corner radius */
     border-radius: 25px;
     border: 2px solid #505050;
 }
 
-.curtains-container{
+#door-open {
+    margin-top: 5%;
+    width: 50px;
+    height: 50px;
+}
+
+
+
+.blinds-container{
     float: left;
     width: 20%;
     height: 50%;
@@ -174,16 +181,12 @@ cursor: pointer;
     text-align: center;
 }
 
-.intruder-alarm{
-    position: relative;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, -10%);
-    margin-top: 5%;
+#intruder-alarm{
     width: 30px;
-    height: 30px;
-    background-color: rgb(0, 212, 0);
-    /* Corner radius */
-    border-radius: 25px;
-    border: 2px solid #505050;
+    height: 30px;    
+}
+
+#blinds-open{
+    width: 50px;
+    height: 50px;
 }
