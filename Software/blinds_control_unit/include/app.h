@@ -21,11 +21,17 @@
 #include "pico/time.h"
 
 #include "mqtt_client.h"
+#include "stepper_motor.h"
+#include "blind.h"
 ///< ADD HERE THE INCLUDES OF THE MODULES <///
+#define GPIO_MOTOR_LSB 0 ///< GPIO pin of the LSB of the stepper motor
+#define MOTOR_MODE 4 ///< Step mode of the stepper motor
 
+stepper_motor_t gMotor; ///< Global variable of the stepper motor
+blind_t gBlind; ///< Global variable of the blind
 
 /**
- * @brief Initialize the application: Light Control Unit
+ * @brief Initialize the application: Blind Control Unit
  * 
  */
 void app_init(void);

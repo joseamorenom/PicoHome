@@ -17,9 +17,7 @@ typedef struct {
     uint8_t position;
 } blind_t;
 
-extern stepper_motor_t gMotor;
-
-void blind_init(blind_t *blind, uint8_t gpio_lsb);
+void blind_init(blind_t *blind, stepper_motor_t *motor, uint8_t gpio_lsb, uint8_t motor_mode);
 
 void blind_open(blind_t *blind);
 void blind_close(blind_t *blind);

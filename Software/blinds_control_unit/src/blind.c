@@ -1,8 +1,10 @@
 #include "blind.h"
 
-void blind_init(blind_t *blind, uint8_t gpio_lsb)
+void blind_init(blind_t *blind, stepper_motor_t *motor, uint8_t gpio_lsb, uint8_t motor_mode)
 {
     blind->position = 0;
+
+    stepper_motor_init(motor, 1.8, motor_mode, gpio_lsb);
     //blind_read_flash(blind);
 }
 
