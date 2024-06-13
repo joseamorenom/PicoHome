@@ -1,6 +1,7 @@
 const host = "18.207.44.162";
 const port = 80; // Websocket port
 var mqtt;
+var field;
 var reconnectTimeout = 2000;
 const username = "Ky0rJgAkBwgfIy8fGgkQPQ8";
 const password = "Iid+7moLn+TDnnAclpGk3J/E";
@@ -32,8 +33,9 @@ function onFailure(message) {
 }
 
 function onMessageArrived(msg){
-  var field = msg.destinationName.split("/")[4];
+  field = msg.destinationName.split("/")[4];
   console.log("Message received at topic "+msg.destinationName);
+  // console.log(field);
   if(field == "field2"){
     console.log("Light sensor information received");
     var light = document.getElementById("rec-light");
@@ -50,26 +52,23 @@ function onMessageArrived(msg){
     var access = document.getElementById("usr-accss-cncd");
     var hour = document.getElementById("usr-time");
     var date = document.getElementById("usr-date");
-    const acc_uid = (msg.payloadString).split(",");
+    var acc_uid = (msg.payloadString).split(",");
     var indicator = document.getElementById("intruder-alarm");
     user.innerHTML = acc_uid[1];
     if(acc_uid[0] == "1"){
       access.innerHTML = "Granted";
       indicator.style.backgroundColor = "green";
     }
-    else{
+    else if (acc_uid[0] == "0"){
       indicator.style.backgroundColor = "red";
       access.innerHTML = "Denied";
     }
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", 'https://api.thingspeak.com/channels/2571668/feeds.json?', true);
-    xhr.send();
-    var time = JSON.parse(xhr.responseText).feeds[0].created_at;
-    const aux = time.split("T");
-    date.innerHTML = aux[0];
-    var hourMod = parseInt(aux[1].split("Z")[0].split(":")[0]) - 5;
-    hour.innerHTML = hourMod + ":" + aux[1].split("Z")[0].split(":")[1] + ":" + aux[1].split("Z")[0].split(":")[2];
-    console.log("New UID entered: "+uid);
+    var time = new Date();
+    time = time.toString();
+    console.log(time);
+    const aux = time.split(" ");
+    date.innerHTML = aux[2]+"-"+aux[1]+"-"+aux[3];
+    hour.innerHTML = aux[4];
   } else if(field == "field6"){
     console.log("Door sensor information received");
     var doorSt = document.getElementById("door-status");
@@ -141,4 +140,7 @@ document.getElementById("close-blinds")
 
 // Button for deactivating alarm
 document.getElementById("deact-alarm")
-        .addEventListener("click", () => publishData("channels/2571668/publish/fields/field7", "0"));
+        .addEventListener("click", () => {
+          publishData("channels/2571668/publish/fields/field7", "0");
+          this.disabled = true;
+        });
