@@ -74,10 +74,10 @@ function onMessageArrived(msg){
     var doorSt = document.getElementById("door-status");
     var indicator = document.getElementById("door-open");
     if(msg.payloadString == "0"){
-      indicator.style.backgroundColor = "green";
+      indicator.style.backgroundColor = "transparent";
       doorSt.innerHTML = "open";
     } else if (msg.payloadString == "1") {
-      indicator.style.backgroundColor = "red";
+      indicator.style.backgroundColor = "brown";
       doorSt.innerHTML = "closed";
     }
   } else if(field == "field8"){
@@ -89,6 +89,7 @@ function onMessageArrived(msg){
       button.disabled = false;
       bg.style.backgroundColor = "red";
     } else {
+      document.getElementById("intruder-notif").innerHTML = "";
       button.disabled = true;
       bg.style.backgroundColor = "#5db4a4";
     }
@@ -104,6 +105,7 @@ function MQTTconnect() {
     password : password,
     onSuccess: onConnect,
     onFailure: onFailure,
+    reconnect: true
   };
   mqtt.onMessageArrived = onMessageArrived;
   mqtt.connect(options); //connect
@@ -121,7 +123,8 @@ var output = document.getElementById("sent-light");
 
 slider.onchange = function() {
   output.innerHTML = this.value;
-  publishData("channels/2571668/publish/fields/field1", this.value);
+  if (this.value == 0) publishData("channels/2571668/publish/fields/field1", "1");
+  else                 publishData("channels/2571668/publish/fields/field1", this.value);
 };
 
 document.getElementById("lights-on")
@@ -135,7 +138,7 @@ document.getElementById("lights-off")
         .addEventListener("click", () => {
           slider.value = 0;
           output.innerHTML = 0;
-          publishData("channels/2571668/publish/fields/field1", "0");
+          publishData("channels/2571668/publish/fields/field1", "1");
         });
 
 // Buttons for blinds
@@ -150,7 +153,4 @@ var alrm_btn = document.getElementById("deact-alarm");
 var bg = document.getElementById("intruder");
 alrm_btn.addEventListener("click", () => {
           publishData("channels/2571668/publish/fields/field7", "0");
-          document.getElementById("intruder-notif").innerHTML = "";
-          alrm_btn.disabled = true;
-          bg.style.backgroundColor = "#5db4a4";
         });
