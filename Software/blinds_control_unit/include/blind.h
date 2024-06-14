@@ -20,12 +20,33 @@
 #define MAX_LOOPS 2 ///< Number of loops to open or close the blind
 
 typedef struct {
-    uint8_t position;
+    uint8_t position; ///< Position of the blind (0-100)
 } blind_t;
 
+/**
+ * @brief Initialize the blind structure with the motor and the GPIOs
+ * 
+ * @param blind Structure to be initialized
+ * @param motor Structure of the motor
+ * @param gpio_lsb Number of the LSB GPIO pin of the motor
+ * @param motor_mode Mode operation of the motor (FULL_STEP or HALF_STEP)
+ */
 void blind_init(blind_t *blind, stepper_motor_t *motor, uint8_t gpio_lsb, uint8_t motor_mode);
 
+/**
+ * @brief Open the blind by rotating the motor
+ * 
+ * @param blind Structure of the blind
+ * @param motor Structure of the motor
+ */
 void blind_open(blind_t *blind, stepper_motor_t *motor);
+
+/**
+ * @brief Close the blind by rotating the motor
+ * 
+ * @param blind Structure of the blind
+ * @param motor Structure of the motor
+ */
 void blind_close(blind_t *blind, stepper_motor_t *motor);
 
 // void blind_read_flash(blind_t *blind);

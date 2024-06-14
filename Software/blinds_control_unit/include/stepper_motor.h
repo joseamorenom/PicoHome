@@ -81,7 +81,7 @@ void stepper_motor_loop(stepper_motor_t *motor, int16_t loops);
 void stepper_motor_set_alarm(stepper_motor_t *motor);
 
 /**
- * @brief Timer handler for the stepper motor
+ * @brief Timer handler for the stepper motor, this function is called every time the timer is triggered for give a step to the motor
  * 
  */
 void stepper_motor_timer_handler(void);
