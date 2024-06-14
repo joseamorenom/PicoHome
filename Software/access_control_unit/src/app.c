@@ -28,7 +28,7 @@
 #define PIR_GPIO 16     ///< PIR sensor to detect movement
 #define RELAY_GPIO 17   ///< Relay to control the door. 1 to open.
 #define LOCK_GPIO 18    ///< Lock to know the state of the door: locked(1)/unlocked(0)
-#define BUZZER_GPIO 27  ///< KY-006 buzzer
+#define BUZZER_GPIO 26  ///< KY-006 buzzer
 
 ///< Other definitions
 #define SEND_DOOR_TIME_S 5           ///< Send the door state to the broker every 5 seconds
@@ -38,6 +38,7 @@
 #define SYS_ALARM_WAIT_MS 30*1000    ///< Time to wait to turn on the PIR sensor after the alarm is activated
 #define SYS_SEND_ALARM_TIME_S 10     ///< Send the alarm state to the broker every 5 seconds
 #define SYS_WHATCHDOG_TIME_MS 10*1000   ///< Watchdog time
+#define SYS_TIME_TOGGLING_LED_S 5    ///< Time to toggle the led
 
 extern volatile flags_t gFlags;
 extern mqtt_t gMqtt;
@@ -45,6 +46,7 @@ key_pad_t gKeyPad;
 nfc_rfid_t gNFC;
 pir_t gPIR;
 door_t gDoor;
+bool gLed = false;
 
 enum {
     INDOOR, ///< Means: there is no alarm activated. It includes when the user goes out or comes in to the house
@@ -66,6 +68,8 @@ void app_init(void)
     nfc_init_as_spi(&gNFC, spi1, NFC_SCK, NFC_MOSI, NFC_MISO, NFC_CS, 22, NFC_RST);
     pir_init(&gPIR, PIR_GPIO, false);
     door_init(&gDoor, RELAY_GPIO, LOCK_GPIO, SEND_DOOR_TIME_S);
+    gpio_init(BUZZER_GPIO);
+    gpio_set_dir(BUZZER_GPIO, GPIO_OUT);
     app_init_mqtt();
 
     ///< Configure the alarm to send the brightness data to the broker
@@ -100,13 +104,20 @@ void app_main(void)
             }
 
             ///< Check the flags to execute the corresponding functions
+            if (gFlags.broker_connected) { ///< The broker is connected
+                gFlags.broker_connected = 0;
+                led_on();
+                add_alarm_in_ms(SYS_TIME_TOGGLING_LED_S*1000, led_toggle_timer_cb, NULL, false);
+            }
             if (gFlags.broker_alarm){ ///< Ther user turn off the alarm
                 gFlags.broker_alarm = 0;
                 gSystemState = INDOOR;
                 gFlags.sys_send_alarm = 0;
                 pir_set_irq_enabled(&gPIR, false);
+                nfc_init_as_spi(&gNFC, spi1, NFC_SCK, NFC_MOSI, NFC_MISO, NFC_CS, 22, NFC_RST);
                 gpio_put(BUZZER_GPIO, 0);
-                printf("Change to indoor\n");
+                printf("Change to indoor - Broker: %d\n", atoi(gMqtt.data.alarm));
+                publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_ALARM, "0", 2, 1);
             }
             if (gFlags.sys_keypad_switch){
                 gFlags.sys_keypad_switch = 0;
@@ -121,6 +132,7 @@ void app_main(void)
                     printf("Valid tag detected\n");
                     door_open(&gDoor);
                 }
+                led_on();
                 char str[14]; ///< 1 bytes of tag access + 1 byte of comma + 8 bytes of the tag UID + 3 bytes colon + 1 byte of '\0'
                 snprintf(str, sizeof(str), "%d,%02x:%02x:%02x:%02x", gNFC.tag.uid_reg_access, 
                         (uint8_t)(gNFC.tag.uid>>24), (uint8_t)(gNFC.tag.uid>>16), (uint8_t)(gNFC.tag.uid>>8), (uint8_t)(gNFC.tag.uid));
@@ -128,7 +140,7 @@ void app_main(void)
             }
             if (gFlags.sys_send_door){
                 gFlags.sys_send_door = 0;
-                publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_DOOR, door_is_open(&gDoor)?"1":"0", 2, true);
+                publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_DOOR, door_is_open(&gDoor)?"0":"1", 2, true);
             }
             if (gFlags.sys_key_pressed){
                 gFlags.sys_key_pressed = 0;
@@ -228,13 +240,10 @@ bool check_tag_timer_cb(struct repeating_timer *t)
     watchdog_update();
 
     // Check for a tag entering
-    // if (door_is_open(&gDoor)){ ///< Just check the tag if the door is locked
-    //     if (nfc_is_new_tag(&gNFC)){
-    //         gFlags.sys_check_tag = 1; ///< Activate the flag of the NFC interruption to read the card
-    //     }
-    // }
-    if (nfc_is_new_tag(&gNFC)){
-        gFlags.sys_check_tag = 1; ///< Activate the flag of the NFC interruption to read the card
+    if (!door_is_open(&gDoor)){ ///< Just check the tag if the door is locked
+        if (nfc_is_new_tag(&gNFC)){
+            gFlags.sys_check_tag = 1; ///< Activate the flag of the NFC interruption to read the card
+        }
     }
 
     ///< Send the door state to the broker
@@ -247,6 +256,17 @@ bool check_tag_timer_cb(struct repeating_timer *t)
     ///< Send the alarm to the broker every second
     if (gSystemState == INTRUDER && !gFlags.sys_send_alarm) {
         gFlags.sys_send_alarm = 1; ///< Activate the flag to send the alarm to the broker
+    }
+
+    ///< Led system
+    if (gSystemState ==  ALARM){
+        led_toggle();
+    }
+    else if (gSystemState == INTRUDER){
+        led_on();
+    }
+    else {
+        led_off();
     }
 
     return true;
@@ -272,6 +292,17 @@ int64_t alarm_timer_cb(alarm_id_t id, void *data)
     
     default:
         break;
+    }
+    return 0;
+}
+
+int64_t led_toggle_timer_cb(alarm_id_t id, void *data)
+{
+    static uint8_t cnt = 0;
+    led_toggle();
+    if (++cnt == SYS_TIME_TOGGLING_LED_S){
+        cnt = 0;
+        led_off();
     }
     return 0;
 }
@@ -327,6 +358,7 @@ void pwm_handler(void)
     }
 }
 
+
 void pwm_set_as_pit(uint8_t slice, uint16_t milis, bool enable)
 {
     assert(milis<=262);                  // PWM can manage interrupt periods greater than 262 milis
@@ -346,3 +378,20 @@ void pwm_set_as_pit(uint8_t slice, uint16_t milis, bool enable)
     pwm_init(slice, &cfg, enable);
 }
 
+
+void led_toggle()
+{
+    gLed = !gLed;
+    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, gLed);
+}
+
+void led_on()
+{
+    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, true);
+}
+
+
+void led_off()
+{
+    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, false);
+}

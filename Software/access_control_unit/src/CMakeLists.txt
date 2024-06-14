@@ -10,6 +10,7 @@ target_link_libraries(app_access
     hardware_pwm
     hardware_sync
     hardware_watchdog
+    pico_cyw43_arch_none
     mqtt_client_lib
     keypad_lib
     nfc_lib
@@ -58,7 +59,7 @@ target_link_libraries(pir_lib
     hardware_irq
     )
 
-# PIR library
+# Door library
 add_library(door_lib STATIC door.c)
 
 target_include_directories(door_lib PUBLIC ../include/)

@@ -103,4 +103,6 @@ void stepper_motor_timer_handler(void)
     //printf("Step %d\n", motor.step % motor.step_mode);
     //printf("Bits %02X\n", motor.steps[motor.step % motor.step_mode]);
 
+    //gBlind.position = gMotor.step/gMotor.step_target;
+
 }

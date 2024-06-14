@@ -61,6 +61,7 @@ static void mqtt_connection_cb(mqtt_client_t *client, void *arg, mqtt_connection
     if(status == MQTT_CONNECT_ACCEPTED) {
         printf("Connection acepted\n");
         mqtt_set_inpub_callback(client, mqtt_incoming_publish_cb, mqtt_incoming_data_cb, arg);
+        gFlags.broker_connected = 1; ///< Set the connection flag
     
     } else {
         printf("Connection rejected. Status: %d\n", status);

@@ -23,6 +23,8 @@
 #include "hardware/timer.h"
 #include "hardware/irq.h"
 
+//#include "blind.h"
+
 #define MOTOR_SPEED_US 1000
 #define ONE_LOOP_4_STEPS 2048
 #define ONE_LOOP_8_STEPS 4096
@@ -43,6 +45,7 @@ typedef struct
 }stepper_motor_t;
 
 extern stepper_motor_t gMotor;
+//extern blind_t gBlind;
 
 /**
  * @brief Initialize the stepper motor

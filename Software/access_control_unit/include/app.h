@@ -18,6 +18,7 @@
 #include "pico/stdlib.h"
 #include "pico/time.h"
 #include "pico/flash.h"
+#include "pico/cyw43_arch.h"
 #include "hardware/sync.h"
 #include "hardware/pwm.h"
 #include "hardware/watchdog.h"
@@ -91,6 +92,15 @@ bool check_tag_timer_cb(struct repeating_timer *t);
 int64_t alarm_timer_cb(alarm_id_t id, void *data);
 
 /**
+ * @brief Callback function to toggle de led when system is connected to the broker.
+ * 
+ * @param id 
+ * @param data 
+ * @return int64_t 
+ */
+int64_t led_toggle_timer_cb(alarm_id_t id, void *data);
+
+/**
  * @brief This function is the callback function for the GPIO interruptions.
  * 
  * @param num 
@@ -115,5 +125,12 @@ static inline bool checkNumber(uint8_t number){
 static inline bool checkLetter(uint8_t letter){
     return (letter >= 0x0A && letter <= 0x0D);
 }
+
+void led_toggle();
+
+void led_on();
+
+void led_off();
+
 
 #endif // __APP_H__
