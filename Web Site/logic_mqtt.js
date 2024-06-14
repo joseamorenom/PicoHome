@@ -67,24 +67,31 @@ function onMessageArrived(msg){
     time = time.toString();
     console.log(time);
     const aux = time.split(" ");
-    date.innerHTML = aux[2]+"-"+aux[1]+"-"+aux[3];
+    date.innerHTML = aux[2]+"-"+aux[1]+"-"+aux[3][2]+aux[3][3];
     hour.innerHTML = aux[4];
   } else if(field == "field6"){
     console.log("Door sensor information received");
     var doorSt = document.getElementById("door-status");
     var indicator = document.getElementById("door-open");
-    if(msg.payloadString == "1"){
+    if(msg.payloadString == "0"){
       indicator.style.backgroundColor = "green";
       doorSt.innerHTML = "open";
-    } else if (msg.payloadString == "0") {
+    } else if (msg.payloadString == "1") {
       indicator.style.backgroundColor = "red";
       doorSt.innerHTML = "closed";
     }
   } else if(field == "field8"){
     console.log("Alarm sensor information received");
     var button = document.getElementById("deact-alarm");
-    if(msg.payloadString == "1")       button.disabled = false;
-    else                               button.disabled = true;
+    var bg = document.getElementById("intruder");
+    if(msg.payloadString == "1"){
+      document.getElementById("intruder-notif").innerHTML = "Intruder detected! Deactivate alarm.";
+      button.disabled = false;
+      bg.style.backgroundColor = "red";
+    } else {
+      button.disabled = true;
+      bg.style.backgroundColor = "#5db4a4";
+    }
   }
 }
 
@@ -121,14 +128,14 @@ document.getElementById("lights-on")
         .addEventListener("click", () => {
           slider.value = 100;
           output.innerHTML = 100;
-          publishData("channels/2571668/publish/fields/field1", "100")
+          publishData("channels/2571668/publish/fields/field1", "100");
         });
 
 document.getElementById("lights-off")
         .addEventListener("click", () => {
           slider.value = 0;
           output.innerHTML = 0;
-          publishData("channels/2571668/publish/fields/field1", "0")
+          publishData("channels/2571668/publish/fields/field1", "0");
         });
 
 // Buttons for blinds
@@ -139,8 +146,11 @@ document.getElementById("close-blinds")
         .addEventListener("click", () => publishData("channels/2571668/publish/fields/field3", "0"));
 
 // Button for deactivating alarm
-document.getElementById("deact-alarm")
-        .addEventListener("click", () => {
+var alrm_btn = document.getElementById("deact-alarm");
+var bg = document.getElementById("intruder");
+alrm_btn.addEventListener("click", () => {
           publishData("channels/2571668/publish/fields/field7", "0");
-          this.disabled = true;
+          document.getElementById("intruder-notif").innerHTML = "";
+          alrm_btn.disabled = true;
+          bg.style.backgroundColor = "#5db4a4";
         });
