@@ -4,7 +4,7 @@
  * \details
  * \author      PicoHome
  * \version     0.0.2
- * \date        03/05/2024
+ * \date        08/06/2024
  * \copyright   Unlicensed
  */
 
@@ -26,7 +26,7 @@
  */
 typedef struct{
     uint8_t gpio_in_relay;  ///< GPIO connected to the relay that opens the door
-    uint8_t gpio_lock;      ///<  Indicates that the door was opened
+    uint8_t gpio_lock;      ///< Indicates if the door is open or closed: 0 if it is open, 1 if it is closed
     uint8_t cnt_send_door;  ///< Counter to send the door state to the broker
     uint8_t time_send_door; ///< Time to send the door state to the broker. Asumes an alarm that triggers every second
 }door_t; ///< All door related information
@@ -43,7 +43,7 @@ typedef struct{
 void door_init(door_t *door, uint8_t gpio_in_relay, uint8_t gpio_lock, uint8_t time_send_door);
 
 /**
- * @brief This method opens the door
+ * @brief This method opens the door by activating the relay and setting an alarm to close it after a certain time.
  * 
  * @param door pointer to door data structure
  */

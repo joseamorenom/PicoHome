@@ -126,7 +126,7 @@ void app_main(void)
                 gKeyPad.rows = gpio_get_all() & (0x0000000f << gKeyPad.KEY.rlsb); ///< Get rows gpio values
                 pwm_set_enabled(gKeyPad.pwm_slice, true); ///< Set the debouncer alarm
             }
-            if (gFlags.sys_check_tag){
+            if (gFlags.sys_check_tag){ ///< Check if the detected tag is valid
                 gFlags.sys_check_tag = 0;
                 if (nfc_check_is_valid_tag(&gNFC)){
                     printf("Valid tag detected\n");
@@ -138,17 +138,17 @@ void app_main(void)
                         (uint8_t)(gNFC.tag.uid>>24), (uint8_t)(gNFC.tag.uid>>16), (uint8_t)(gNFC.tag.uid>>8), (uint8_t)(gNFC.tag.uid));
                 publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_NFC, str, 2, true);
             }
-            if (gFlags.sys_send_door){
+            if (gFlags.sys_send_door){ ///< Send the door state to the broker
                 gFlags.sys_send_door = 0;
                 publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_DOOR, door_is_open(&gDoor)?"0":"1", 2, true);
             }
-            if (gFlags.sys_key_pressed){
+            if (gFlags.sys_key_pressed){ ///< Process the key pressed
                 gFlags.sys_key_pressed = 0;
                 kp_capture(&gKeyPad);
                 printf("Key pressed: %d\n", gKeyPad.KEY.dkey);
                 app_process_key();
             }
-            if (gFlags.sys_send_alarm){
+            if (gFlags.sys_send_alarm){ ///< Send the alarm to the broker, indicating that an intruder is detected
                 gFlags.sys_send_alarm = 0;
                 publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_ALARM, "1", 2, true);
                 gSystemState = INTRUDER;
@@ -349,7 +349,7 @@ void pwm_handler(void)
             kp_set_irq_cols(&gKeyPad); ///< Switch interrupt to columns
             pwm_set_enabled(gKeyPad.pwm_slice, false); ///< Disable the debouncer PIT
         }
-        pwm_clear_irq(0);         // Acknowledge slice 0 PWM IRQ
+        pwm_clear_irq(0);         ///< Acknowledge slice 0 PWM IRQ
         break; 
 
     default:

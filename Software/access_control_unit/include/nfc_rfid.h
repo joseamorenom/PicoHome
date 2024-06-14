@@ -415,9 +415,10 @@ uint8_t nfc_calculate_crc(nfc_rfid_t *nfc, uint8_t *data, uint8_t len, uint8_t *
 bool nfc_get_data_tag(nfc_rfid_t *nfc);
 
 /**
- * @brief Check the tag in the NFC.
+ * @brief Checks if the tag is valid. Such tag just is valid if the UID is in the data base.
  * 
  * @param nfc 
+ * @return true if the tag is valid, false otherwise.
  */
 bool nfc_check_is_valid_tag(nfc_rfid_t *nfc);
 

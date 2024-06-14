@@ -36,15 +36,17 @@ typedef struct{
  */
 void pir_init(pir_t *pir, uint8_t gpio, bool en);
 
+/**
+ * @brief Enable or disable the gpio interrupt for the PIR sensor.
+ * 
+ * @param pir 
+ * @param en 
+ */
 static inline void pir_set_irq_enabled(pir_t *pir, bool en)
 {
     pir->en = en;
     gpio_set_irq_enabled(pir->gpio, GPIO_IRQ_EDGE_RISE, en);
 }
-
-
-
-
 
 #endif // __PIR__
 

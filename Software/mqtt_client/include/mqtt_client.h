@@ -41,8 +41,8 @@
 #define MQTT_CLIENT_USER_BLINDS_CONTROL_UNIT "EREPLR8CBhAyPAMXNAkPCSM"
 #define MQTT_CLIENT_PASS_BLINDS_CONTROL_UNIT "qtNbwuMdFhveYHUCyZ0nGipY"
 
-#define MQTT_SEVER_IP1 "18.207.44.162"
-#define MQTT_SEVER_IP2 "54.81.146.55"
+#define MQTT_SEVER_IP1 "18.207.44.162" ///< Server IP of the MQTT broker: ThingSpeak
+#define MQTT_SEVER_IP2 "54.81.146.55"  ///< Another server IP of the MQTT broker: ThingSpeak
 
 /**
  * @brief Function to initialize the wifi module

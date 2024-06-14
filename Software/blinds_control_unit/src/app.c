@@ -1,12 +1,12 @@
 /**
- * \file        functs.c
+ * \file        app.c
  * \brief
  * \details
  * 
  * 
  * \author      PicoHome
  * \version     0.0.1
- * \date        10/04/2024
+ * \date        10/06/2024
  * \copyright   Unlicensed
  */
 #include "app.h"
@@ -35,17 +35,14 @@ void app_init(void)
     gFlags.B = 0; ///< Clear all flags
     ///< Initialize the system modules
     app_init_mqtt();
+    blind_init(&gBlind, &gMotor, GPIO_MOTOR_LSB, MOTOR_MODE);
 
     ///< Configure the alarm to send the brightness data to the broker
     struct repeating_timer timer;
     add_repeating_timer_ms(SEND_DATA_TIME_MS, send_blinds_timer_cb, NULL, &timer);
 
     watchdog_update();
-
-    blind_init(&gBlind, &gMotor, GPIO_MOTOR_LSB, MOTOR_MODE);
-
     app_main();
-
 }
 
 void app_main(void)
@@ -54,18 +51,18 @@ void app_main(void)
     while (true){
         while (gFlags.B) {
             ///< Error handling
-            if (gFlags.error_init_mqtt) {
+            if (gFlags.error_init_mqtt) { ///< Error initializing the mqtt client
                 printf("Error: init_mqtt\n");
                 gFlags.error_init_mqtt = 0;
                 app_init_mqtt();
                 ///< Turn on any warning led
             }
-            if (gFlags.error_sub_mqtt) {
+            if (gFlags.error_sub_mqtt) { ///< Error subscribing to the topic
                 printf("Error: sub_mqtt\n");
                 gFlags.error_sub_mqtt = 0;
                 subscribe_topic(&gMqtt.client, MQTT_TOPIC_SUB_USER_BLINDS);
             }
-            if (gFlags.error_pub_mqtt) {
+            if (gFlags.error_pub_mqtt) { ///< Error sending data to the broker
                 printf("Error: pub_mqtt\n");
                 gFlags.error_pub_mqtt = 0;
                 publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_BLINDS, gMqtt.data.brightness, 2, 1);

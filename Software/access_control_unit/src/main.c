@@ -1,11 +1,11 @@
 /**
  * \file        main.h
- * \brief       Application interface of the Light Control Unit
+ * \brief       Application interface of the Access Control Unit
  * 
- * \details     The light control unit is a device that controls the brightness of a light bulb
- * using a PWM signal. The light control unit is connected to a broker using MQTT and send the light value
- * to the broker. 
- * The light control unit can receive messages from the broker to set the light value.
+ * \details     The Access Control Unit is a device that controls the access to the house. 
+ * It has a PIR sensor to detect movement, a door that can be opened by a relay, 
+ * a buzzer to alert of an unauthorized access, a NFC RFID reader to allow access to the house with a valid card, 
+ * a keypad to enter a password and disable the alarm, and a LED to indicate the status of the system.
  * 
  * \author      Picohome
  * \version     0.0.1

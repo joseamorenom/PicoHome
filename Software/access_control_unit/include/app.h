@@ -1,6 +1,6 @@
 /**
  * \file        app.h
- * \brief       API of the Light Control Unit
+ * \brief       API of the Access Control Unit
  * \details
  * \author      Picohome
  * \version     0.0.1
@@ -126,10 +126,22 @@ static inline bool checkLetter(uint8_t letter){
     return (letter >= 0x0A && letter <= 0x0D);
 }
 
+/**
+ * @brief Toggle the led of the pico_w board
+ * 
+ */
 void led_toggle();
 
+/**
+ * @brief Turn on the led of the pico_w board
+ * 
+ */
 void led_on();
 
+/**
+ * @brief Turn off the led of the pico_w board
+ * 
+ */
 void led_off();
 
 

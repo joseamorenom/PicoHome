@@ -1,11 +1,9 @@
 /**
  * \file        main.h
- * \brief       Application interface of the Light Control Unit
+ * \brief       Application interface of the Blinds Control Unit
  * 
- * \details     The light control unit is a device that controls the brightness of a light bulb
- * using a PWM signal. The light control unit is connected to a broker using MQTT and send the light value
- * to the broker. 
- * The light control unit can receive messages from the broker to set the light value.
+ * \details     The Blinds Control Unit is a device that controls the blinds of the house.
+ * It has a motor to open and close the blinds, where ther user can control the blinds from a Web interface.
  * 
  * \author      Picohome
  * \version     0.0.1
