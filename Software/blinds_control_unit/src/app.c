@@ -19,6 +19,8 @@
 extern volatile flags_t gFlags;
 extern mqtt_t gMqtt;
 
+
+
 void app_init(void)
 {
     // Enable the watchdog, requiring the watchdog to be updated every 100ms or the chip will reboot
@@ -34,6 +36,10 @@ void app_init(void)
     add_repeating_timer_ms(SEND_DATA_TIME_MS, send_blinds_timer_cb, NULL, &timer);
 
     watchdog_update();
+
+
+    blind_init(&gBlind, &gMotor, GPIO_MOTOR_LSB, MOTOR_MODE);
+
 
     app_main();
 
