@@ -1,6 +1,9 @@
 # PicoHome
 
-**PicoHome** is a home automation system built using Raspberry Pi Pico. It offers a web-based interface to control various aspects of your home, making it smarter and more secure. The system is divided into three main modules: Lights, Security, and Curtains.
+**PicoHome** is a home automation system built using Raspberry Pi Pico. It offers a web-based interface to control various aspects of your home, making it smarter and more secure. The system is divided into three main modules: Lights, Security, and Blinds. Each module uses the MQTT protocol to send the data to the broker (Thingspeak). The user interface is a Web Page whose recibe the information and send commands to the modules, also with MQTT (this avoid delays from web page to modules).
+
+![Blocks diagram](https://github.com/joseamorenom/PicoHome/assets/80019104/269d49a5-9e66-4719-a8f4-6e798de59e82)
+
 
 ## Features
 
@@ -66,6 +69,16 @@ To get started with PicoHome, follow these steps:
 1. Deploy the web interface on a local server.
 2. Connect the hardware components as per the provided schematics.
 3. Access the web interface through your browser to control the lights, security system, and curtains.
+
+## MQTT Testing
+
+You can test the connection to any broker by setting correctly the macros at ![mqtt_client.h](https://github.com/joseamorenom/PicoHome/blob/main/Software/mqtt_client/include/mqtt_client.h) file. 
+Change the SSID and PASS wifi macros to connect to a network with an internet connection.
+Then, change the MQTT credentials to connect as a MQTT device to some broker. Also change the topics properly. 
+Once the macros has been changed, just use the three following functions:
+1. **init_mqtt()**: to configure the Raspberry Pi Pico for wireless connection and the usage of MQTT protocol.
+2. **subscribe_topic()**: to recibe data form the specified topic.
+3. **publish()**: to send data to the broker.
 
 ## Contributing
 
