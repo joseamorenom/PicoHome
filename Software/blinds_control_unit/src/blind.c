@@ -1,3 +1,15 @@
+/**
+ * \file        blind.c
+ * \brief
+ * \details
+ * 
+ * 
+ * \author      PicoHome
+ * \version     0.0.1
+ * \date        10/06/2024
+ * \copyright   Unlicensed
+ */
+
 #include "blind.h"
 
 void blind_init(blind_t *blind, stepper_motor_t *motor, uint8_t gpio_lsb, uint8_t motor_mode)

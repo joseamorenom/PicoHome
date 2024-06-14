@@ -1,6 +1,6 @@
 /**
  * \file        app.h
- * \brief       API of the Light Control Unit
+ * \brief       API of the Blinds Control Unit
  * \details
  * \author      Picohome
  * \version     0.0.1
@@ -61,10 +61,22 @@ bool send_blinds_timer_cb(struct repeating_timer *t);
  */
 int64_t led_toggle_timer_cb(alarm_id_t id, void *data);
 
+/**
+ * @brief Toggle the led of the pico_w board
+ * 
+ */
 void led_toggle();
 
+/**
+ * @brief Turn on the led of the pico_w board
+ * 
+ */
 void led_on();
 
+/**
+ * @brief Turn off the led of the pico_w board
+ * 
+ */
 void led_off();
 
 #endif // __APP_H__

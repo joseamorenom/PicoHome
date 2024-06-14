@@ -1,3 +1,13 @@
+/**
+ * \file        stepper_motor.h
+ * \brief
+ * \details
+ * \author      PicoHome
+ * \version     0.0.2
+ * \date        08/06/2024
+ * \copyright   Unlicensed
+ */
+
 #include "stepper_motor.h"
 
 /**

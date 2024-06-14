@@ -1,3 +1,18 @@
+/**
+ * \file        test.c
+ * \brief       File to test the mqtt client
+ * \details     It is a simple program to test the mqtt client connection to the broker.
+ * It is used to test the connection to the broker, the subscription to a topic and the publication of a message.
+ * Change the values of the macros to test the connection to the broker, including the IP address of the broker, 
+ * the client ID, the user and the password, where there last three are the credentials of a MQTT Device.
+ * 
+ * 
+ * \author      PicoHome
+ * \version     0.0.1
+ * \date        10/04/2024
+ * \copyright   Unlicensed
+ */
+
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "mqtt_client.h"
@@ -27,7 +42,7 @@ int main(void)
     printf("Subscribed to the topic\n");
     // char data[2] = "7\0";
 
-    if(publish(client, NULL, MQTT_TOPIC_PUB_BRIGHTNESS, "100", 2, 1)) {
+    if(publish(client, NULL, MQTT_TOPIC_PUB_BRIGHTNESS, "Hello world from pico_w", 2, 1)) {
         printf("Correctly published\n");
     }
 

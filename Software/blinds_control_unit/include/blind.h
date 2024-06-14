@@ -1,3 +1,13 @@
+/**
+ * \file        blind.h
+ * \brief
+ * \details
+ * \author      PicoHome
+ * \version     0.0.2
+ * \date        08/06/2024
+ * \copyright   Unlicensed
+ */
+
 #ifndef __BLIND_
 #define __BLIND_
 

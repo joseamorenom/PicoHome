@@ -1,6 +1,8 @@
 /**
  * @file mqtt_client
- * @brief Implementation of the mqtt client based on lwip library (mqtt application layer)
+ * @brief Implementation of the mqtt client based on lwip library (mqtt application layer).
+ * See https://www.nongnu.org/lwip/2_1_x/group__mqtt.html for more information about the mqtt library, 
+ * and an example of the mqtt client implementation.
  * @version 0.1
  * @date 2024-06-07
  * @authors PicoHome
@@ -61,7 +63,7 @@ static void mqtt_connection_cb(mqtt_client_t *client, void *arg, mqtt_connection
     if(status == MQTT_CONNECT_ACCEPTED) {
         printf("Connection acepted\n");
         mqtt_set_inpub_callback(client, mqtt_incoming_publish_cb, mqtt_incoming_data_cb, arg);
-        gFlags.broker_connected = 1; ///< Set the connection flag
+        gFlags.broker_connected = 1; ///< Set the flag that indicates that the broker is connected
     
     } else {
         printf("Connection rejected. Status: %d\n", status);

@@ -1,12 +1,12 @@
 /**
- * \file        lightbulb.c
+ * \file        sen_ky018.h
  * \brief
  * \details
  * 
  * 
  * \author      PicoHome
  * \version     0.0.1
- * \date        10/04/2024
+ * \date        10/06/2024
  * \copyright   Unlicensed
  */
 

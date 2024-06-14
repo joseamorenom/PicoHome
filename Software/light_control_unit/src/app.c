@@ -1,12 +1,12 @@
 /**
- * \file        functs.c
+ * \file        app.c
  * \brief
  * \details
  * 
  * 
  * \author      PicoHome
  * \version     0.0.1
- * \date        10/04/2024
+ * \date        10/06/2024
  * \copyright   Unlicensed
  */
 #include "app.h"
