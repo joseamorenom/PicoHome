@@ -12,12 +12,16 @@
 
 ### 1. **Lights Module**
 
+![Light](https://github.com/joseamorenom/PicoHome/blob/main/Hardware/Step%20Motor/light_control_unit.jpg)
+
 This module allows you to control the lights in your home using the web interface. You can:
 
 - Turn lights on or off.
 - Adjust the light intensity, which is monitored and verified by a photoresistor.
 
 ### 2. **Security Module**
+
+![Access](https://github.com/joseamorenom/PicoHome/blob/main/Hardware/Step%20Motor/access_control_unit.jpg)
 
 This module ensures the security of your home with several features:
 
@@ -26,6 +30,8 @@ This module ensures the security of your home with several features:
 - **PIR Sensor:** Detects movement in the house. If movement is detected, the user has 30 seconds to enter the correct code to deactivate the system. Failing to do so or entering the wrong code three times will trigger a loud alarm and send an alert to the web interface.
 
 ### 3. **Curtains Module**
+
+![Blind](https://github.com/joseamorenom/PicoHome/blob/main/Hardware/Step%20Motor/blind_control_unit.jpg)
 
 This module allows you to control the curtains in your home through the web interface. The curtains can be:
 
