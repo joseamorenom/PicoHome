@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include "pico/time.h"
 #include "hardware/gpio.h"
 
@@ -59,7 +60,7 @@ static inline int64_t door_close_cb(alarm_id_t id, void *door)
 {
     door_t *d = (door_t *)door;
     gpio_put(d->gpio_in_relay, 0);
-    return true;
+    return 0;
 }
 
 /**

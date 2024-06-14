@@ -14,11 +14,11 @@
 #define KY018_GPIO 26           ///< GPIO of the KY-018 sensor
 
 #define LIGHTBULB_GPIO 19       ///< GPIO of the lightbulb
-#define LIGTHBULB_FREQUENCY 60  ///< 60Hz
+#define LIGTHBULB_FREQUENCY_HZ 1000  ///< 60Hz
 #define LIGHTBULB_DUTY_CYCLE 50 ///< 50%
 
 #define SEND_DATA_TIME_MS 1000*5  ///< Send data to the broker every 5 seconds
-#define SYS_WHATCHDOG_TIME_MS 30*1000   ///< Watchdog time
+#define SYS_WHATCHDOG_TIME_MS 15*1000   ///< Watchdog time
 
 extern volatile flags_t gFlags;
 extern mqtt_t gMqtt;
@@ -35,7 +35,7 @@ void app_init(void)
     ///< Initialize the system modules
     app_init_mqtt();
     ky018_init(&gKy018, KY018_GPIO);
-    lightbulb_init(&gLightbulb, LIGHTBULB_GPIO, LIGTHBULB_FREQUENCY, LIGHTBULB_DUTY_CYCLE);
+    lightbulb_init(&gLightbulb, LIGHTBULB_GPIO, LIGTHBULB_FREQUENCY_HZ, LIGHTBULB_DUTY_CYCLE);
 
     ///< Configure the alarm to send the brightness data to the broker
     struct repeating_timer timer;
@@ -71,9 +71,16 @@ void app_main(void)
             }
             ///< Check the flags to execute the corresponding functions
             if (gFlags.broker_brightness) {
-                printf("Broker: %s\n", gMqtt.data.brightness);
                 gFlags.broker_brightness = 0;
-                lightbulb_set_brightness(&gLightbulb, atoi(gMqtt.data.brightness));
+                uint8_t brightness = atoi(gMqtt.data.brightness);
+                if (brightness <= 0) {
+                    lightbulb_enabled(&gLightbulb, false);
+                } else {
+                    lightbulb_set_brightness(&gLightbulb, brightness);
+                }
+
+                printf("String: %s\n", gMqtt.data.brightness);
+                printf("Broker: %d\n", atoi(gMqtt.data.brightness));
             }
             if (gFlags.sys_send_brightness) {
                 gFlags.sys_send_brightness = 0;

@@ -44,7 +44,7 @@ typedef union {
         uint8_t error_pub_mqtt      : 1; ///< Error sending data to the broker
         uint8_t error_sub_mqtt      : 1; ///< Error subscribing to a topic
 
-        uint16_t                    : 9;
+        uint16_t                    : 3;
     };
 
 }flags_t; 
@@ -58,8 +58,8 @@ typedef struct {
     mqtt_client_t *client;
     struct {
         char brightness[4]; ///< Light data
-        char blinds[4];     ///< Blinds data
-        char alarm[4];      ///< Alarm data
+        char blinds[2];     ///< Blinds data
+        char alarm[2];      ///< Alarm data
     }data;
 }mqtt_t;
 

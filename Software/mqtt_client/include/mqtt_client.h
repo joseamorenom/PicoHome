@@ -6,10 +6,10 @@
 #include "lwip/dns.h"
 #include "types.h"
 
-#define SSID "Hinestroza"
-#define PASS "6B004524"
+#define SSID "Redmi Note 8"
+#define PASS "maverickflor0"
 
-#define MQTT_CHANNEL_ID "2571668"
+#define MQTT_CHANNEL_ID "2571668" ///< Channel ID for the light control unit (2577021)(2571668)
 
 ///< -----------  MQTT TOPICS -------------- <///
 
