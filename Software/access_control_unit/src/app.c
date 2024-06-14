@@ -102,20 +102,11 @@ void app_main(void)
             ///< Check the flags to execute the corresponding functions
             if (gFlags.broker_alarm){ ///< Ther user turn off the alarm
                 gFlags.broker_alarm = 0;
-                if (strcmp(gMqtt.data.alarm, "1") == 0){
-                    gSystemState = INDOOR;
-                    gFlags.sys_send_alarm = 0;
-                    pir_set_irq_enabled(&gPIR, false);
-                    gpio_put(BUZZER_GPIO, 0);
-                    printf("Change to indoor\n");
-                }
-                // else if(strcmp(gMqtt.data.alarm, "0") == 0){
-                //     gSystemState = ALARM;
-                //     gFlags.sys_send_alarm = 1;
-                //     gFlags.sys_check_tag = 1;
-                //     pir_set_irq_enabled(&gPIR, true);
-                //     printf("Change to alarm\n");
-                // }
+                gSystemState = INDOOR;
+                gFlags.sys_send_alarm = 0;
+                pir_set_irq_enabled(&gPIR, false);
+                gpio_put(BUZZER_GPIO, 0);
+                printf("Change to indoor\n");
             }
             if (gFlags.sys_keypad_switch){
                 gFlags.sys_keypad_switch = 0;
@@ -130,19 +121,14 @@ void app_main(void)
                     printf("Valid tag detected\n");
                     door_open(&gDoor);
                 }
-                char str[12]; ///< 2 bytes of tag access + 1 byte of comma + 8 bytes of the tag UID + 1 byte of '\0'
-                if (gNFC.tag.uid_reg_access == 0b00 || gNFC.tag.uid_reg_access == 0b01) {
-                    snprintf(str, 12, "0%d,%08x", gNFC.tag.uid_reg_access, gNFC.tag.uid);
-                }else {
-                    snprintf(str, 12, "%d,%08x", gNFC.tag.uid_reg_access, gNFC.tag.uid);
-                }
+                char str[14]; ///< 1 bytes of tag access + 1 byte of comma + 8 bytes of the tag UID + 3 bytes colon + 1 byte of '\0'
+                snprintf(str, sizeof(str), "%d,%02x:%02x:%02x:%02x", gNFC.tag.uid_reg_access, 
+                        (uint8_t)(gNFC.tag.uid>>24), (uint8_t)(gNFC.tag.uid>>16), (uint8_t)(gNFC.tag.uid>>8), (uint8_t)(gNFC.tag.uid));
                 publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_NFC, str, 2, true);
-                printf("Tag sent to the broker: %08x\n", gNFC.tag.uid);
             }
             if (gFlags.sys_send_door){
                 gFlags.sys_send_door = 0;
                 publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_DOOR, door_is_open(&gDoor)?"1":"0", 2, true);
-                printf("Door state sent to the broker: %d\n", door_is_open(&gDoor));
             }
             if (gFlags.sys_key_pressed){
                 gFlags.sys_key_pressed = 0;
@@ -165,20 +151,21 @@ void app_main(void)
 void app_process_key()
 {
     static uint8_t key_cnt = 0;
-    static uint8_t key_value = 0;
+    static uint16_t key_value = 0;
     static uint8_t cnt_tries = 0;
     switch (gSystemState)
     {
     case INDOOR: ///< Press the key (0x0E) to change to alarm state
         if (gKeyPad.KEY.dkey == 0x0E){ ///< Turn on the alarm state
             add_alarm_in_ms(SYS_ALARM_WAIT_MS, alarm_timer_cb, NULL, false);
-            printf("Change to set timer for PIR sensor\n");
+            printf("Turn on alarm mode\n");
         }
         break;
     case ALARM: ///< Enter the password to change to indoor
         if (checkNumber(gKeyPad.KEY.dkey)){ ///< Check if the key is a number
             key_value = key_value*10 + gKeyPad.KEY.dkey;
             key_cnt++;
+            printf("Key value: %d\n", key_value);
             if (key_cnt == 4){ ///< Check if the password is complete
                 if (key_value == SYS_PASS){
                     cnt_tries = 0;
@@ -241,10 +228,13 @@ bool check_tag_timer_cb(struct repeating_timer *t)
     watchdog_update();
 
     // Check for a tag entering
-    if (door_is_open(&gDoor) && !gNFC.tag.is_present){ ///< Just check the tag if the door is locked
-        if (nfc_is_new_tag(&gNFC)){
-            gFlags.sys_check_tag = 1; ///< Activate the flag of the NFC interruption to read the card
-        }
+    // if (door_is_open(&gDoor)){ ///< Just check the tag if the door is locked
+    //     if (nfc_is_new_tag(&gNFC)){
+    //         gFlags.sys_check_tag = 1; ///< Activate the flag of the NFC interruption to read the card
+    //     }
+    // }
+    if (nfc_is_new_tag(&gNFC)){
+        gFlags.sys_check_tag = 1; ///< Activate the flag of the NFC interruption to read the card
     }
 
     ///< Send the door state to the broker
@@ -270,12 +260,13 @@ int64_t alarm_timer_cb(alarm_id_t id, void *data)
         pir_set_irq_enabled(&gPIR, true);
         gPIR.pass_correct = false;
         gSystemState = ALARM;
-        printf("Alarm timeout: Change to alarm\n");
+        printf("30 seconds. PIR turn on\n");
         break;
 
     case ALARM:
         if (!gPIR.pass_correct){
             gFlags.sys_send_alarm = 1; ///< Activate the flag to send the alarm to the broker
+            printf("30s passed. Alarm sent\n");
         }
         break;
     

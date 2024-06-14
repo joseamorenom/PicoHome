@@ -87,9 +87,8 @@ void nfc_init_as_spi(nfc_rfid_t *nfc, spi_inst_t *_spi, uint8_t sck, uint8_t mos
     }
 
     ///< Initialize the uid data base
-	for (uint8_t i = 0; i < SIZE_UID_DATA_BASE; i++) {
-		nfc->uid_data_base[i] = 0x1B541C5F + i;
-	}
+	nfc->uid_data_base[0] = 0xc64eacf8;
+	nfc->uid_data_base[1] = 0x1b541c5f;
 	nfc_load_last_uid(nfc);
 
 }
@@ -582,14 +581,14 @@ bool nfc_check_is_valid_tag(nfc_rfid_t *nfc)
 	for (uint8_t i = 0; i < SIZE_UID_DATA_BASE; i++) {
 		if (uid == nfc->uid_data_base[i]) {
 			nfc->tag.is_present = true;
-			nfc->tag.uid_reg_access = 0b11;
+			nfc->tag.uid_reg_access = 0b1;
 			nfc_store_last_uid(nfc); ///< Store the last UID in the flash
 			return true;
 		}
 	}
 
 	nfc->tag.is_present = false;
-	nfc->tag.uid_reg_access = 0b00;
+	nfc->tag.uid_reg_access = 0b0;
 	nfc_store_last_uid(nfc); ///< Store the last UID in the flash
 	return false;
 }
@@ -620,5 +619,9 @@ void nfc_load_last_uid(nfc_rfid_t *nfc)
     uint32_t *ptr = (uint32_t *)addr; ///< Place an int pointer at our memory-mapped address
 
     nfc->tag.uid = ptr[0];
-	nfc->tag.uid_reg_access = (uint8_t)ptr[1];
+	if ((uint8_t)ptr[1] != 0b0 && (uint8_t)ptr[1] != 0b1) {
+		nfc->tag.uid_reg_access = 0b0;
+	} else {
+		nfc->tag.uid_reg_access = (uint8_t)ptr[1];
+	}
 }

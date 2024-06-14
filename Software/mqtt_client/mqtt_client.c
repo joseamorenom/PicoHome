@@ -98,6 +98,7 @@ static void mqtt_incoming_data_cb(void *arg, const uint8_t *data, uint16_t len, 
         case 0:
             ///< It is (-1) to take into account the null final character of the string
             if (len <= sizeof(gMqtt.data.brightness) - 1) { ///< Check if the data is not too long - Validation
+                memset((void *)gMqtt.data.brightness, 0, sizeof(gMqtt.data.brightness));
                 memcpy((void *)gMqtt.data.brightness, data, len);
                 gFlags.broker_brightness = 1;
                 printf("BRIGHTNESS: %s\n", gMqtt.data.brightness);
@@ -108,6 +109,7 @@ static void mqtt_incoming_data_cb(void *arg, const uint8_t *data, uint16_t len, 
             break;
         case 1:
             if (len <= sizeof(gMqtt.data.blinds) - 1) { ///< Check if the data is not too long - Validation
+                // memset((void *)gMqtt.data.blinds, 0, sizeof(gMqtt.data.blinds));
                 memcpy((void *)gMqtt.data.blinds, data, len);
                 gFlags.broker_blinds = 1;
                 printf("BLINDS: %s\n", gMqtt.data.blinds);
@@ -119,6 +121,7 @@ static void mqtt_incoming_data_cb(void *arg, const uint8_t *data, uint16_t len, 
 
         case 3:
             if (len <= sizeof(gMqtt.data.alarm) - 1) { ///< Check if the data is not too long - Validation
+                // memset((void *)gMqtt.data.alarm, 0, sizeof(gMqtt.data.alarm));
                 memcpy((void *)gMqtt.data.alarm, data, len);
                 gFlags.broker_alarm = 1;
                 printf("ALARM: %s\n", gMqtt.data.alarm);
@@ -158,6 +161,6 @@ static void mqtt_pub_request_cb(void *arg, err_t result)
         gFlags.error_pub_mqtt = 1; ///< Set the error flag
     }
     else {
-        printf("Publication success - result: %d\n", result);
+        // printf("Publication success - result: %d\n", result);
     }
 }

@@ -21,7 +21,7 @@ int main(void)
         printf("It could not connect to the server. Trying again...\n");
     }
     
-    while (!subscribe_topic(&client, MQTT_TOPIC_SUB_BRIGHTNESS)) {
+    while (!subscribe_topic(&client, MQTT_TOPIC_SUB_USER_BRIGHTNESS)) {
         printf("It could not subscribe to the topic\n");
     }
     printf("Subscribed to the topic\n");

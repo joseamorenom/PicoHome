@@ -1,25 +1,7 @@
 {
-    "cmake.generator": "Unix Makefiles",
-    "cmake.buildBeforeRun": true,
-    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "files.associations": {
-        "*.vhd": "shellscript",
-        "*.c": "c",
-        "mqtt_client.h": "c",
-        "cyw43_arch.h": "c",
+        "door.h": "c",
         "app.h": "c",
-        "lightbulb.h": "c",
-        "gpio.h": "c",
-        "app_types.h": "c",
-        "time.h": "c",
-        "types.h": "c",
-        "sen_ky018.h": "c",
-        "stdlib.h": "c",
-        "sync.h": "c",
-        "keypad_irq.h": "c",
-        "timer.h": "c",
-        "pir.h": "c",
-        "flash.h": "c",
-        "stepper_motor.h": "c"
+        "lightbulb.h": "c"
     }
 }
