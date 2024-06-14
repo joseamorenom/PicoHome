@@ -1,7 +1,21 @@
 {
     "files.associations": {
-        "door.h": "c",
+        "mqtt_client.h": "c",
+        "cyw43_arch.h": "c",
         "app.h": "c",
-        "lightbulb.h": "c"
+        "lightbulb.h": "c",
+        "gpio.h": "c",
+        "app_types.h": "c",
+        "time.h": "c",
+        "types.h": "c",
+        "sen_ky018.h": "c",
+        "blind.h": "c",
+        "stepper_motor.h": "c",
+        "stdlib.h": "c",
+        "sync.h": "c",
+        "keypad_irq.h": "c",
+        "timer.h": "c",
+        "pir.h": "c",
+        "flash.h": "c"
     }
 }

@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "pico/stdlib.h"
+#include "pico/cyw43_arch.h"
 #include "hardware/sync.h"
 #include "hardware/watchdog.h"
 #include "pico/time.h"
@@ -51,5 +52,12 @@ void app_init_mqtt(void);
  * @param t 
  */
 bool send_brightness_timer_cb(struct repeating_timer *t);
+
+void led_toggle();
+
+void led_on();
+
+void led_off();
+
 
 #endif // __APP_H__

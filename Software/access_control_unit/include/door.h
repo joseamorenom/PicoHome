@@ -69,7 +69,7 @@ static inline int64_t door_close_cb(alarm_id_t id, void *door)
  * @param door 
  */
 static inline bool door_is_open(door_t *door){
-    return gpio_get(door->gpio_lock);
+    return !gpio_get(door->gpio_lock);
 }
 
 #endif // __DOOR__

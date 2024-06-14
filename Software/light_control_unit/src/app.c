@@ -24,6 +24,7 @@ extern volatile flags_t gFlags;
 extern mqtt_t gMqtt;
 sen_ky018_t gKy018;
 lightbulb_t gLightbulb;
+bool gLed = false;
 
 void app_init(void)
 {
@@ -70,6 +71,10 @@ void app_main(void)
                 publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_BRIGHTNESS, gMqtt.data.brightness, 2, 1);
             }
             ///< Check the flags to execute the corresponding functions
+            if (gFlags.broker_connected) { ///< The broker is connected
+                gFlags.broker_connected = 0;
+                led_on();
+            }
             if (gFlags.broker_brightness) {
                 gFlags.broker_brightness = 0;
                 uint8_t brightness = atoi(gMqtt.data.brightness);
@@ -130,4 +135,21 @@ bool send_brightness_timer_cb(struct repeating_timer *t)
     gFlags.sys_send_brightness = 1;
 
     return true;
+}
+
+void led_toggle()
+{
+    gLed = !gLed;
+    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, gLed);
+}
+
+void led_on()
+{
+    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, true);
+}
+
+
+void led_off()
+{
+    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, false);
 }

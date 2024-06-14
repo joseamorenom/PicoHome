@@ -29,6 +29,7 @@ typedef union {
         uint8_t broker_brightness   : 1; ///< Flag that indicates that light data was received from the broker
         uint8_t broker_blinds       : 1; ///< Flag that indicates that blinds data was received from the broker
         uint8_t broker_alarm        : 1; ///< Flag that indicates that alarm data was received from the broker
+        uint8_t broker_connected    : 1; ///< Flag that indicates that the broker is connected
 
         /// @brief Flags to control the system events
         uint8_t sys_send_brightness  : 1; ///< Flag to send light data to the broker
@@ -58,8 +59,8 @@ typedef struct {
     mqtt_client_t *client;
     struct {
         char brightness[4]; ///< Light data
-        char blinds[2];     ///< Blinds data
-        char alarm[2];      ///< Alarm data
+        char blinds[4];     ///< Blinds data
+        char alarm[4];      ///< Alarm data
     }data;
 }mqtt_t;
 

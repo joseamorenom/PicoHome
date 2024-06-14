@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "pico/stdlib.h"
+#include "pico/cyw43_arch.h"
 #include "hardware/sync.h"
 #include "hardware/watchdog.h"
 #include "pico/time.h"
@@ -23,12 +24,6 @@
 #include "mqtt_client.h"
 #include "stepper_motor.h"
 #include "blind.h"
-///< ADD HERE THE INCLUDES OF THE MODULES <///
-#define GPIO_MOTOR_LSB 0 ///< GPIO pin of the LSB of the stepper motor
-#define MOTOR_MODE 4 ///< Step mode of the stepper motor
-
-stepper_motor_t gMotor; ///< Global variable of the stepper motor
-blind_t gBlind; ///< Global variable of the blind
 
 /**
  * @brief Initialize the application: Blind Control Unit
@@ -56,5 +51,20 @@ void app_init_mqtt(void);
  * @param t 
  */
 bool send_blinds_timer_cb(struct repeating_timer *t);
+
+/**
+ * @brief Callback function to toggle de led when system is connected to the broker.
+ * 
+ * @param id 
+ * @param data 
+ * @return int64_t 
+ */
+int64_t led_toggle_timer_cb(alarm_id_t id, void *data);
+
+void led_toggle();
+
+void led_on();
+
+void led_off();
 
 #endif // __APP_H__

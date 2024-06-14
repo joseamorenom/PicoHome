@@ -13,12 +13,17 @@
 
 #define SEND_DATA_TIME_MS 1000*5  ///< Send data to the broker every 5 seconds
 #define SYS_WHATCHDOG_TIME_MS 10*1000 ///< Watchdog time in ms
+#define GPIO_MOTOR_LSB 18 ///< GPIO pin of the LSB of the stepper motor
+#define MOTOR_MODE 8 ///< Step mode of the stepper motor
+#define SYS_TIME_TOGGLING_LED_S 5 ///< Time to toggle the led
 
 
 /// @brief Global and extern variables (dont change this two: gFlags and gMqtt)
 extern volatile flags_t gFlags;
 extern mqtt_t gMqtt;
-
+stepper_motor_t gMotor; ///< Global variable of the stepper motor
+blind_t gBlind; ///< Global variable of the blind
+bool gLed = false; ///< Global variable of the led
 
 
 void app_init(void)
@@ -37,9 +42,7 @@ void app_init(void)
 
     watchdog_update();
 
-
     blind_init(&gBlind, &gMotor, GPIO_MOTOR_LSB, MOTOR_MODE);
-
 
     app_main();
 
@@ -68,15 +71,29 @@ void app_main(void)
                 publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_BLINDS, gMqtt.data.brightness, 2, 1);
             }
             ///< Check the flags to execute the corresponding functions
+            if (gFlags.broker_connected) { ///< The broker is connected
+                gFlags.broker_connected = 0;
+                led_on();
+            }
             if (gFlags.broker_blinds) { ///< Blinds data received from the broker
                 printf("Broker blinds\n");
                 gFlags.broker_blinds = 0;
-                ///< ADD HERE THE FUNCTION TO CONTROL THE BLINDS
+                if (strcmp(gMqtt.data.blinds, "1") == 0) {
+                    blind_open(&gBlind, &gMotor);
+                } else if (strcmp(gMqtt.data.blinds, "0") == 0) {
+                    blind_close(&gBlind, &gMotor);
+                }
             }
             if (gFlags.sys_send_blinds) { ///< Send the blinds data to the broker
                 printf("Send blinds\n");
                 gFlags.sys_send_blinds = 0;
-                char blinds[2]; ///< ADD HERE THE FUNCTION TO GET THE BLINDS DATA
+                char blinds[3]; 
+                uint8_t position = gBlind.position;
+                if (position == 0) {
+                    sprintf(blinds, "1");
+                } else if (position == 100) {
+                    sprintf(blinds, "0");
+                }
                 publish(gMqtt.client, NULL, MQTT_TOPIC_PUB_BLINDS, blinds, 2, 1);
             }
             
@@ -118,5 +135,35 @@ bool send_blinds_timer_cb(struct repeating_timer *t)
 
     gFlags.sys_send_blinds = 1;
 
+    led_off();
+
     return true;
+}
+
+int64_t led_toggle_timer_cb(alarm_id_t id, void *data)
+{
+    static uint8_t cnt = 0;
+    led_toggle();
+    if (++cnt == SYS_TIME_TOGGLING_LED_S){
+        cnt = 0;
+        led_off();
+    }
+    return 0;
+}
+
+void led_toggle()
+{
+    gLed = !gLed;
+    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, gLed);
+}
+
+void led_on()
+{
+    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, true);
+}
+
+
+void led_off()
+{
+    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, false);
 }
