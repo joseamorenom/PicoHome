@@ -14,7 +14,7 @@
 #define SEND_DATA_TIME_MS 1000*5  ///< Send data to the broker every 5 seconds
 #define SYS_WHATCHDOG_TIME_MS 10*1000 ///< Watchdog time in ms
 #define GPIO_MOTOR_LSB 18 ///< GPIO pin of the LSB of the stepper motor
-#define MOTOR_MODE 8 ///< Step mode of the stepper motor
+#define MOTOR_MODE 8 ///< Step mode of the stepper motor (Half step)
 #define SYS_TIME_TOGGLING_LED_S 5 ///< Time to toggle the led
 
 

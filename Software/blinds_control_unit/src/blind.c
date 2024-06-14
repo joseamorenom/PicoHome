@@ -5,14 +5,14 @@ void blind_init(blind_t *blind, stepper_motor_t *motor, uint8_t gpio_lsb, uint8_
     blind->position = 0;
 
     stepper_motor_init(motor, 1.8, motor_mode, gpio_lsb);
-    //blind_read_flash(blind);
+    //blind_read_flash(blind); // Read the last position from the flash
 }
 
 void blind_open(blind_t *blind, stepper_motor_t *motor)
 {
     if (blind->position == 100)
     {
-        stepper_motor_loop(motor, MAX_LOOPS);
+        stepper_motor_loop(motor, MAX_LOOPS); // Positive direction
         blind->position = 0;
     }
     // blind_write_flash(blind);
@@ -22,7 +22,7 @@ void blind_close(blind_t *blind, stepper_motor_t *motor)
 {
     if (blind->position == 0)
     {
-        stepper_motor_loop(motor, -MAX_LOOPS);
+        stepper_motor_loop(motor, -MAX_LOOPS); // Negative direction
         blind->position = 100;
     }
     // blind_write_flash(blind);
